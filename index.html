@@ -23,59 +23,62 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- Matches database and flag utilities -->
+  <script src="matches.js"></script>
+
   <style>
     /* CSS Variable Definitions for Themes */
     :root {
       /* Dark Theme (Default) */
-      --bg-primary: #0b0f19;
-      --bg-secondary: #1e293b;
-      --bg-tertiary: #0f172a;
-      --border-color: #334155;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
+      --bg-primary: #060913;
+      --bg-secondary: rgba(16, 22, 38, 0.55);
+      --bg-tertiary: #0b0f19;
+      --border-color: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(0, 245, 155, 0.3);
+      --text-primary: #f3f4f6;
+      --text-secondary: #9eaabf;
       
-      --primary-color: #00a86b; /* Emerald Green */
-      --primary-hover: #00c880;
-      --secondary-color: #ffd700; /* Gold */
-      --accent-color: #e21a3c; /* Crimson */
+      --primary-color: #00f59b; /* Neon Emerald Mint */
+      --primary-hover: #12ffab;
+      --secondary-color: #ffd23f; /* Chrome Gold */
+      --accent-color: #ff2a5f; /* Neon Crimson */
       
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --card-hover-border: var(--primary-color);
-      --header-bg: rgba(15, 23, 42, 0.85);
+      --card-bg: rgba(16, 22, 38, 0.55);
+      --header-bg: rgba(6, 9, 19, 0.75);
       
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      --card-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.25);
       
       /* Stage Badge Colors */
-      --badge-group: #3b82f6;
-      --badge-r32: #8b5cf6;
-      --badge-r16: #f59e0b;
-      --badge-qf: #ec4899;
-      --badge-sf: #ef4444;
-      --badge-third: #10b981;
-      --badge-final: #ffd700;
+      --badge-group: #2563eb;
+      --badge-r32: #7c3aed;
+      --badge-r16: #ea580c;
+      --badge-qf: #db2777;
+      --badge-sf: #dc2626;
+      --badge-third: #059669;
+      --badge-final: #ffd23f;
     }
 
     [data-theme="light"] {
       /* Light Theme */
-      --bg-primary: #f1f5f9;
-      --bg-secondary: #ffffff;
-      --bg-tertiary: #f8fafc;
-      --border-color: #cbd5e1;
+      --bg-primary: #f5f7fa;
+      --bg-secondary: rgba(255, 255, 255, 0.75);
+      --bg-tertiary: #eef1f6;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 168, 107, 0.4);
       --text-primary: #0f172a;
-      --text-secondary: #64748b;
+      --text-secondary: #5e6b7e;
       
-      --primary-color: #00875a;
-      --primary-hover: #00a86b;
-      --secondary-color: #d97706; /* Rich Amber Gold */
-      --accent-color: #c0122e;
+      --primary-color: #00a86b; /* Classic Emerald */
+      --primary-hover: #00875a;
+      --secondary-color: #d97706; /* Amber Gold */
+      --accent-color: #e11d48; /* Crimson */
       
-      --card-bg: rgba(255, 255, 255, 0.8);
-      --card-hover-border: var(--primary-color);
-      --header-bg: rgba(248, 250, 252, 0.85);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --header-bg: rgba(245, 247, 250, 0.85);
       
-      --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.06);
-      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+      --card-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
     }
 
     /* Core Styles */
@@ -96,6 +99,32 @@
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Beautiful Ambient Mesh Blob Backgrounds in Dark Theme */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 245, 155, 0.06) 0%, rgba(0, 0, 0, 0) 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(255, 42, 95, 0.04) 0%, rgba(0, 0, 0, 0) 70%);
+      top: 800px;
+      left: -200px;
+      pointer-events: none;
+      z-index: -1;
     }
 
     h1, h2, h3, h4, .font-title {
@@ -112,36 +141,42 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
+      position: relative;
+      z-index: 2;
     }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: var(--bg-tertiary);
+      background: var(--bg-primary);
     }
     ::-webkit-scrollbar-thumb {
       background: var(--border-color);
-      border-radius: 5px;
+      border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
       background: var(--primary-color);
     }
 
-    /* Sticky Navigation Header */
+    /* Floating Navigation Header */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 1200px;
       z-index: 1000;
       background-color: var(--header-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
       box-shadow: var(--glass-shadow);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-container {
@@ -149,25 +184,28 @@
       justify-content: space-between;
       align-items: center;
       height: 70px;
+      padding: 0 24px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-size: 1.4rem;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--text-primary);
       letter-spacing: -0.5px;
+      text-transform: uppercase;
     }
 
     .logo i {
       color: var(--primary-color);
       font-size: 1.6rem;
-      animation: rotateBall 10s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(0, 245, 155, 0.5));
+      animation: spinBall 15s linear infinite;
     }
 
-    @keyframes rotateBall {
+    @keyframes spinBall {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
@@ -175,38 +213,48 @@
     nav {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 24px;
     }
 
     .nav-links {
       display: flex;
       list-style: none;
-      gap: 20px;
+      gap: 12px;
     }
 
     .nav-links a {
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-secondary);
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: all 0.2s ease;
+      padding: 8px 16px;
+      border-radius: 10px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
     }
 
-    .nav-links a:hover, .nav-links a.active {
+    .nav-links a:hover {
       color: var(--text-primary);
-      background-color: rgba(0, 168, 107, 0.1);
+      background-color: rgba(0, 245, 155, 0.05);
+      border-color: rgba(0, 245, 155, 0.15);
+    }
+
+    .nav-links a.active {
+      color: var(--bg-primary);
+      background-color: var(--primary-color);
+      box-shadow: 0 0 15px rgba(0, 245, 155, 0.3);
     }
 
     /* Theme Toggle Switch */
     .theme-toggle-btn {
-      background: none;
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-color);
       color: var(--text-primary);
       cursor: pointer;
       font-size: 1rem;
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -216,7 +264,8 @@
     .theme-toggle-btn:hover {
       border-color: var(--primary-color);
       color: var(--primary-color);
-      background-color: rgba(0, 168, 107, 0.05);
+      background-color: rgba(0, 245, 155, 0.05);
+      box-shadow: 0 0 10px rgba(0, 245, 155, 0.1);
     }
 
     /* Mobile Menu Toggle Button */
@@ -232,43 +281,14 @@
     /* Hero Section */
     .hero-section {
       position: relative;
-      background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(0, 168, 107, 0.15) 100%),
-                  radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.4) 0%, var(--bg-primary) 100%);
-      background-size: cover;
-      background-position: center;
-      overflow: hidden;
-      padding: 130px 20px 70px 20px;
+      background: radial-gradient(circle at 50% 30%, rgba(0, 245, 155, 0.1) 0%, transparent 70%),
+                  radial-gradient(circle at 10% 80%, rgba(255, 42, 95, 0.04) 0%, transparent 60%);
+      padding: 170px 20px 80px 20px;
       text-align: center;
       border-bottom: 1px solid var(--border-color);
     }
 
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .hero-section::after {
-      content: '';
-      position: absolute;
-      top: 55%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 280px; height: 280px;
-      border: 1.5px dashed rgba(255, 255, 255, 0.03);
-      border-radius: 50%;
-      z-index: 1;
-      pointer-events: none;
-    }
-
     .hero-content {
-      position: relative;
-      z-index: 2;
       max-width: 800px;
       margin: 0 auto;
     }
@@ -276,68 +296,76 @@
     .badge-live {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background-color: var(--accent-color);
       color: #fff;
-      padding: 6px 14px;
+      padding: 8px 16px;
       border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-size: 0.85rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 15px rgba(226, 26, 60, 0.4);
-      animation: pulseLive 1.5s infinite;
+      margin-bottom: 24px;
+      box-shadow: 0 0 20px rgba(255, 42, 95, 0.4);
+      animation: pulseLive 2s infinite;
     }
 
     @keyframes pulseLive {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(226, 26, 60, 0.7); }
-      70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(226, 26, 60, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(226, 26, 60, 0); }
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.7); }
+      70% { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(255, 42, 95, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 42, 95, 0); }
     }
 
     .hero-title {
-      font-size: 3rem;
-      line-height: 1.15;
+      font-size: 4rem;
+      line-height: 1.1;
       margin-bottom: 15px;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, var(--text-primary) 30%, var(--primary-color) 100%);
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--primary-color) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 900;
+    }
+
+    [data-theme="light"] .hero-title {
+      background: linear-gradient(135deg, #090d16 40%, var(--primary-color) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 30px auto;
+      max-width: 650px;
+      margin: 0 auto 35px auto;
+      line-height: 1.6;
     }
 
     /* Countdown Timer Card */
     .countdown-card {
       display: inline-block;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .countdown-title {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--text-secondary);
-      margin-bottom: 10px;
-      font-weight: 600;
+      margin-bottom: 12px;
+      font-weight: 700;
     }
 
     .countdown-container {
       display: flex;
-      gap: 15px;
-      padding: 15px 25px;
+      gap: 16px;
+      padding: 20px 32px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       box-shadow: var(--glass-shadow);
     }
 
@@ -345,31 +373,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 70px;
+      min-width: 75px;
     }
 
     .countdown-value {
       font-family: 'Outfit', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.8rem;
       font-weight: 800;
       color: var(--secondary-color);
-      line-height: 1.1;
+      line-height: 1;
+      text-shadow: 0 0 15px rgba(255, 210, 63, 0.25);
     }
 
     .countdown-label {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-secondary);
-      margin-top: 5px;
-      font-weight: 600;
+      margin-top: 8px;
+      font-weight: 700;
     }
 
     .countdown-sep {
-      font-size: 1.8rem;
-      color: var(--border-color);
+      font-size: 2.2rem;
+      color: rgba(255,255,255,0.15);
       align-self: center;
-      margin-top: -15px;
+      margin-top: -10px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    [data-theme="light"] .countdown-sep {
+      color: rgba(0,0,0,0.1);
     }
 
     /* Stats Grid */
@@ -377,37 +411,41 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      max-width: 750px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
     .stat-card {
       background-color: var(--bg-secondary);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 15px;
+      border-radius: 20px;
+      padding: 20px 15px;
       box-shadow: var(--card-shadow);
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .stat-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       border-color: var(--primary-color);
+      box-shadow: 0 12px 24px -8px rgba(0, 245, 155, 0.2), var(--card-shadow);
     }
 
     .stat-num {
-      font-size: 1.6rem;
-      font-weight: 800;
+      font-size: 2rem;
+      font-weight: 900;
       color: var(--primary-color);
       font-family: 'Outfit', sans-serif;
+      line-height: 1.1;
+      margin-bottom: 4px;
     }
 
     .stat-lbl {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 1px;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     /* Section Global Headers */
@@ -415,83 +453,139 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 30px;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 12px;
+      margin-bottom: 35px;
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 16px;
     }
 
     .section-title-wrap {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     .section-title-wrap i {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--primary-color);
+      filter: drop-shadow(0 0 8px rgba(0, 245, 155, 0.4));
     }
 
     .section-title {
-      font-size: 1.8rem;
+      font-size: 2rem;
       letter-spacing: -0.5px;
+      font-weight: 800;
     }
 
     .section-desc {
       color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-top: 2px;
+      font-size: 0.95rem;
+      margin-top: 4px;
     }
 
-    /* Today's Matches Section */
+    /* Sections background tweaks */
+    .upcoming-section {
+      padding: 80px 0;
+    }
+
     .today-section {
-      padding: 70px 0;
-      background-color: var(--bg-tertiary);
+      padding: 80px 0;
+      background-color: rgba(11, 15, 25, 0.3);
+    }
+
+    [data-theme="light"] .today-section {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .featured-section {
+      padding: 80px 0;
+    }
+
+    .schedule-section {
+      padding: 80px 0;
+      background-color: rgba(11, 15, 25, 0.3);
+    }
+
+    [data-theme="light"] .schedule-section {
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
     .today-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+
+    /* Featured Matches Grid */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card-featured-final {
+      grid-column: span 1;
+      border: 2px solid var(--secondary-color) !important;
+      background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(255, 210, 63, 0.05) 100%) !important;
+      box-shadow: 0 10px 30px rgba(255, 210, 63, 0.15) !important;
+    }
+
+    .featured-banner-tag {
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      background: var(--secondary-color);
+      color: #060913;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(255, 210, 63, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     /* ====================================================
-       LIVE UPDATE SYSTEM STYLES
+       LIVE UPDATE SYSTEM STYLES (Floating Pill Layout)
     ==================================================== */
-
-    /* Live Update Status Bar */
     .live-update-bar {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      width: calc(100% - 40px);
+      max-width: 800px;
       z-index: 1001;
-      background: linear-gradient(90deg, rgba(15,23,42,0.97) 0%, rgba(0,168,107,0.12) 100%);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border-color);
-      padding: 10px 20px;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 40px;
+      padding: 14px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
-      font-size: 0.8rem;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 20px;
+      font-size: 0.85rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 245, 155, 0.05);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     [data-theme="light"] .live-update-bar {
-      background: linear-gradient(90deg, rgba(248,250,252,0.97) 0%, rgba(0,135,90,0.05) 100%);
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(0, 168, 107, 0.03);
     }
 
     .live-update-bar.visible {
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
     }
 
     .live-update-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .live-dot-indicator {
@@ -501,21 +595,24 @@
       border-radius: 50%;
       animation: liveDotPulse 2s ease-in-out infinite;
       flex-shrink: 0;
+      box-shadow: 0 0 10px var(--primary-color);
     }
 
     .live-dot-indicator.fetching {
       background: var(--secondary-color);
       animation: fetchingSpin 1s linear infinite;
+      box-shadow: 0 0 10px var(--secondary-color);
     }
 
     .live-dot-indicator.error {
       background: var(--accent-color);
       animation: none;
+      box-shadow: 0 0 10px var(--accent-color);
     }
 
     @keyframes liveDotPulse {
-      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,168,107,0.7); }
-      50% { opacity: 0.8; transform: scale(1.1); box-shadow: 0 0 0 6px rgba(0,168,107,0); }
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,245,155,0.7); }
+      50% { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 0 8px rgba(0,245,155,0); }
     }
 
     @keyframes fetchingSpin {
@@ -526,90 +623,91 @@
 
     .live-update-text {
       color: var(--text-primary);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .live-update-time {
       color: var(--text-secondary);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
     }
 
     .live-update-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 16px;
       flex-shrink: 0;
     }
 
     .live-next-update {
       color: var(--text-secondary);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
     }
 
     .live-next-update-bar {
-      width: 60px;
-      height: 4px;
-      background: var(--border-color);
-      border-radius: 2px;
+      width: 70px;
+      height: 5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
       overflow: hidden;
+    }
+
+    [data-theme="light"] .live-next-update-bar {
+      background: rgba(0,0,0,0.06);
     }
 
     .live-next-update-fill {
       height: 100%;
       background: var(--primary-color);
-      border-radius: 2px;
+      border-radius: 10px;
       width: 100%;
       transition: width linear;
     }
 
     .btn-refresh-now {
-      background: rgba(0,168,107,0.1);
-      border: 1px solid rgba(0,168,107,0.3);
+      background: rgba(0, 245, 155, 0.08);
+      border: 1px solid rgba(0, 245, 155, 0.2);
       color: var(--primary-color);
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       white-space: nowrap;
     }
 
     .btn-refresh-now:hover {
-      background: rgba(0,168,107,0.2);
+      background: var(--primary-color);
+      color: var(--bg-primary);
       border-color: var(--primary-color);
+      box-shadow: 0 0 15px rgba(0, 245, 155, 0.3);
     }
 
-    .btn-refresh-now i {
-      font-size: 0.7rem;
-    }
-
-    /* Score flash animation when a score updates */
     @keyframes scoreFlash {
-      0% { background: rgba(0,168,107,0.4); transform: scale(1.15); }
-      50% { background: rgba(0,168,107,0.2); transform: scale(1.05); }
+      0% { background: rgba(0, 245, 155, 0.3); transform: scale(1.1); }
+      50% { background: rgba(0, 245, 155, 0.1); transform: scale(1.03); }
       100% { background: transparent; transform: scale(1); }
     }
 
     @keyframes liveScoreGlow {
-      0%, 100% { color: var(--accent-color); text-shadow: 0 0 8px rgba(226,26,60,0.5); }
-      50% { color: #ff4d6d; text-shadow: 0 0 16px rgba(226,26,60,0.8); }
+      0%, 100% { color: var(--accent-color); text-shadow: 0 0 8px rgba(255, 42, 95, 0.5); }
+      50% { color: #ff5e87; text-shadow: 0 0 18px rgba(255, 42, 95, 0.85); }
     }
 
     .score-updated {
-      animation: scoreFlash 1.2s ease-out forwards;
-      border-radius: 6px;
+      animation: scoreFlash 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      border-radius: 10px;
     }
 
     /* Live match row highlight in table */
     tr.match-row-live {
-      background: linear-gradient(90deg, rgba(226,26,60,0.04) 0%, transparent 100%);
+      background: linear-gradient(90deg, rgba(255, 42, 95, 0.04) 0%, transparent 100%) !important;
     }
 
     tr.match-row-live td:first-child {
@@ -619,51 +717,54 @@
     /* Live score text */
     .live-score-num {
       animation: liveScoreGlow 1.5s ease-in-out infinite;
+      font-weight: 900;
     }
 
     /* Live match card border pulse */
     .match-card.match-is-live {
       border-color: var(--accent-color) !important;
-      box-shadow: 0 0 0 3px rgba(226,26,60,0.12), var(--card-shadow);
+      box-shadow: 0 0 0 3px rgba(255, 42, 95, 0.1), var(--card-shadow);
       animation: liveCardPulse 2s ease-in-out infinite;
     }
 
     @keyframes liveCardPulse {
-      0%, 100% { box-shadow: 0 0 0 3px rgba(226,26,60,0.12), var(--card-shadow); }
-      50% { box-shadow: 0 0 0 6px rgba(226,26,60,0.06), var(--card-shadow); }
+      0%, 100% { box-shadow: 0 0 0 3px rgba(255, 42, 95, 0.1), var(--card-shadow); }
+      50% { box-shadow: 0 0 0 6px rgba(255, 42, 95, 0.05), var(--card-shadow); }
     }
 
     /* Notification toast for score changes */
     .score-toast-container {
       position: fixed;
-      top: 80px;
+      top: 100px;
       right: 20px;
       z-index: 2000;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       pointer-events: none;
     }
 
     .score-toast {
-      background: var(--bg-secondary);
-      border: 1px solid var(--primary-color);
+      background: rgba(16, 22, 38, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
       border-left: 4px solid var(--primary-color);
-      border-radius: 10px;
-      padding: 12px 16px;
-      box-shadow: var(--glass-shadow);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
-      gap: 12px;
-      min-width: 280px;
-      max-width: 340px;
+      gap: 16px;
+      min-width: 300px;
+      max-width: 360px;
       animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       pointer-events: all;
     }
 
     .score-toast.goal-toast {
-      border-color: var(--accent-color);
       border-left-color: var(--accent-color);
+      box-shadow: 0 10px 30px rgba(255, 42, 95, 0.15);
     }
 
     @keyframes toastSlideIn {
@@ -677,7 +778,7 @@
     }
 
     .toast-icon {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       flex-shrink: 0;
     }
 
@@ -686,36 +787,39 @@
     }
 
     .toast-title {
-      font-weight: 700;
-      font-size: 0.85rem;
+      font-weight: 800;
+      font-size: 0.9rem;
       color: var(--text-primary);
       margin-bottom: 2px;
+      font-family: 'Outfit', sans-serif;
     }
 
     .toast-body {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
+      font-weight: 500;
     }
 
     /* General Match Card Design */
     .match-card {
-
       background-color: var(--bg-secondary);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 20px;
+      padding: 24px;
       box-shadow: var(--card-shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 16px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .match-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: var(--primary-color);
-      box-shadow: 0 10px 20px -10px rgba(0, 168, 107, 0.2);
+      box-shadow: 0 16px 36px -12px rgba(0, 245, 155, 0.2), var(--card-shadow);
     }
 
     .match-meta {
@@ -725,23 +829,27 @@
     }
 
     .match-num {
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: var(--text-secondary);
-      background-color: var(--bg-primary);
-      padding: 3px 8px;
-      border-radius: 6px;
+      background-color: rgba(255,255,255,0.03);
+      padding: 4px 10px;
+      border-radius: 8px;
       border: 1px solid var(--border-color);
     }
 
+    [data-theme="light"] .match-num {
+      background-color: rgba(0,0,0,0.03);
+    }
+
     .match-stage-badge {
-      font-size: 0.7rem;
-      font-weight: 700;
+      font-size: 0.72rem;
+      font-weight: 800;
       color: #fff;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
     }
 
     .stage-group { background-color: var(--badge-group); }
@@ -750,14 +858,14 @@
     .stage-qf { background-color: var(--badge-qf); }
     .stage-sf { background-color: var(--badge-sf); }
     .stage-third { background-color: var(--badge-third); }
-    .stage-final { background-color: var(--badge-final); color: #000; }
+    .stage-final { background-color: var(--badge-final); color: #000; box-shadow: 0 0 10px rgba(255, 210, 63, 0.4); }
 
     .match-fixture {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin: 10px 0;
-      gap: 10px;
+      gap: 12px;
     }
 
     .match-team {
@@ -774,17 +882,23 @@
     }
 
     .flag-wrap {
-      width: 44px;
-      height: 33px;
+      width: 56px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--bg-tertiary);
       border: 1px solid var(--border-color);
-      border-radius: 6px;
+      border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    }
+
+    .match-team:hover .flag-wrap {
+      transform: scale(1.1);
+      border-color: var(--primary-color);
     }
 
     .team-flag {
@@ -794,15 +908,16 @@
     }
 
     .flag-placeholder {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       color: var(--text-secondary);
     }
 
     .team-name {
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
       word-break: break-word;
       transition: color 0.2s ease;
+      font-family: 'Outfit', sans-serif;
     }
 
     .match-score-center {
@@ -815,217 +930,197 @@
 
     .score-display {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 800;
+      font-size: 2rem;
+      font-weight: 900;
       letter-spacing: 2px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
 
     .score-hyphen {
       color: var(--text-secondary);
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
 
     .score-tbd {
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-secondary);
       background: var(--bg-tertiary);
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      letter-spacing: 1px;
     }
 
     .match-status-pill {
-      font-size: 0.7rem;
-      font-weight: 700;
+      font-size: 0.72rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 5px;
-      padding: 2px 8px;
-      border-radius: 4px;
+      letter-spacing: 0.8px;
+      margin-top: 8px;
+      padding: 3px 10px;
+      border-radius: 6px;
     }
 
     .status-completed {
-      background-color: rgba(148, 163, 184, 0.1);
+      background-color: rgba(255, 255, 255, 0.04);
       color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    [data-theme="light"] .status-completed {
+      background-color: rgba(0, 0, 0, 0.03);
     }
 
     .status-live {
-      background-color: rgba(226, 26, 60, 0.1);
+      background-color: rgba(255, 42, 95, 0.12);
       color: var(--accent-color);
+      border: 1px solid rgba(255, 42, 95, 0.2);
       animation: pulsePill 1.5s infinite;
     }
 
     @keyframes pulsePill {
-      0% { opacity: 0.6; }
+      0% { opacity: 0.7; }
       50% { opacity: 1; }
-      100% { opacity: 0.6; }
+      100% { opacity: 0.7; }
     }
 
     .status-scheduled {
-      background-color: rgba(0, 168, 107, 0.1);
+      background-color: rgba(0, 245, 155, 0.08);
       color: var(--primary-color);
+      border: 1px solid rgba(0, 245, 155, 0.15);
     }
 
     .match-details {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       border-top: 1px solid var(--border-color);
-      padding-top: 12px;
-      font-size: 0.8rem;
+      padding-top: 16px;
+      font-size: 0.85rem;
       color: var(--text-secondary);
     }
 
     .detail-item {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .detail-item i {
-      width: 14px;
+      width: 16px;
       color: var(--primary-color);
+      font-size: 0.9rem;
     }
 
     .time-bst {
-      font-weight: 700;
+      font-weight: 800;
       color: var(--secondary-color);
     }
 
     .no-matches {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 24px;
       background-color: var(--bg-secondary);
       border: 1px dashed var(--border-color);
-      border-radius: 16px;
+      border-radius: 20px;
       color: var(--text-secondary);
+      backdrop-filter: blur(12px);
     }
 
     .no-matches i {
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: var(--border-color);
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     .no-matches p {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      font-size: 1.05rem;
+      font-weight: 500;
     }
 
     .btn-action {
       background: var(--primary-color);
-      color: #fff;
-      font-weight: 600;
+      color: var(--bg-primary);
+      font-weight: 700;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 245, 155, 0.2);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-action:hover {
       background-color: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-
-    /* Featured Matches Section */
-    .featured-section {
-      padding: 70px 0;
-    }
-
-    .featured-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .card-featured-final {
-      grid-column: span 1;
-      border: 2px solid var(--secondary-color);
-      background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(217, 119, 6, 0.05) 100%);
-      box-shadow: 0 0 25px rgba(217, 119, 6, 0.15);
-    }
-
-    .featured-banner-tag {
-      position: absolute;
-      top: -12px;
-      left: 20px;
-      background: var(--secondary-color);
-      color: #000;
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 4px;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    /* Main Schedule Section */
-    .schedule-section {
-      padding: 70px 0;
-      background-color: var(--bg-tertiary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 245, 155, 0.35);
     }
 
     /* Filters Bar */
     .filter-wrapper {
       background-color: var(--bg-secondary);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 30px;
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 35px;
       box-shadow: var(--card-shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
 
     .filter-row-top {
       display: flex;
-      gap: 15px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
     .search-box {
       flex: 1;
-      min-width: 250px;
+      min-width: 280px;
       position: relative;
     }
 
     .search-box i {
       position: absolute;
-      left: 15px;
+      left: 16px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-secondary);
+      font-size: 1rem;
     }
 
     .search-box input {
       width: 100%;
       background-color: var(--bg-primary);
       border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px 15px 12px 42px;
+      border-radius: 12px;
+      padding: 14px 16px 14px 46px;
       color: var(--text-primary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .search-box input:focus {
       border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 245, 155, 0.15);
     }
 
     .filter-select-wrap {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -1033,17 +1128,18 @@
       background-color: var(--bg-primary);
       border: 1px solid var(--border-color);
       color: var(--text-primary);
-      border-radius: 10px;
-      padding: 12px 15px;
-      font-size: 0.9rem;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 0.95rem;
       cursor: pointer;
       outline: none;
-      min-width: 160px;
-      transition: border-color 0.2s ease;
+      min-width: 170px;
+      transition: all 0.25s ease;
     }
 
     .filter-select:focus {
       border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 245, 155, 0.15);
     }
 
     .filter-row-bottom {
@@ -1051,53 +1147,54 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
       border-top: 1px solid var(--border-color);
-      padding-top: 15px;
+      padding-top: 20px;
     }
 
     .quick-tags {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     .quick-tags-title {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     .tag-btn {
       background-color: var(--bg-primary);
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
-      border-radius: 6px;
-      padding: 5px 12px;
-      font-size: 0.75rem;
-      font-weight: 500;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .tag-btn:hover, .tag-btn.active {
       color: var(--text-primary);
       border-color: var(--primary-color);
-      background-color: rgba(0, 168, 107, 0.08);
+      background-color: rgba(0, 245, 155, 0.08);
+      box-shadow: 0 0 10px rgba(0, 245, 155, 0.1);
     }
 
     .view-toggles {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       border: 1px solid var(--border-color);
-      padding: 3px;
-      border-radius: 8px;
+      padding: 4px;
+      border-radius: 12px;
       background-color: var(--bg-primary);
     }
 
@@ -1106,13 +1203,14 @@
       border: none;
       color: var(--text-secondary);
       cursor: pointer;
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
       font-size: 0.85rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .toggle-btn.active {
@@ -1123,38 +1221,43 @@
 
     /* Schedule Rendering Areas */
     .schedule-results-info {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
+      font-weight: 500;
     }
 
     .clear-filters-link {
       color: var(--primary-color);
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     .clear-filters-link:hover {
-      text-decoration: underline;
+      color: var(--primary-hover);
     }
 
     /* Grid layout of match cards */
     .matches-cards-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
     }
 
     /* Table Layout Styles */
     .matches-table-wrapper {
       background-color: var(--bg-secondary);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
+      border-radius: 24px;
       overflow-x: auto;
       box-shadow: var(--card-shadow);
       margin-top: 10px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .schedule-table {
@@ -1165,29 +1268,33 @@
     }
 
     .schedule-table th {
-      background-color: var(--bg-tertiary);
-      color: var(--text-secondary);
-      font-weight: 600;
-      font-size: 0.8rem;
+      background-color: rgba(0, 0, 0, 0.15);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 16px 20px;
+      letter-spacing: 0.8px;
+      padding: 18px 24px;
       border-bottom: 1.5px solid var(--border-color);
     }
 
+    [data-theme="light"] .schedule-table th {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
     .schedule-table td {
-      padding: 16px 20px;
+      padding: 18px 24px;
       border-bottom: 1px solid var(--border-color);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       vertical-align: middle;
     }
 
     .schedule-table tbody tr {
-      transition: background-color 0.15s ease;
+      transition: background-color 0.2s;
     }
 
     .schedule-table tbody tr:hover {
-      background-color: rgba(0, 168, 107, 0.02);
+      background-color: rgba(0, 245, 155, 0.02);
     }
 
     .table-match-stage {
@@ -1200,25 +1307,28 @@
     }
 
     .table-date-main {
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .table-date-sub {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
+      font-weight: 500;
     }
 
     .table-fixture-cell {
       display: flex;
       align-items: center;
-      gap: 15px;
-      font-weight: 600;
+      gap: 16px;
+      font-weight: 700;
+      justify-content: space-between;
+      max-width: 500px;
     }
 
     .table-team {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       width: 180px;
       cursor: pointer;
     }
@@ -1232,20 +1342,27 @@
     }
 
     .table-team-name {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       transition: color 0.15s ease;
+      font-family: 'Outfit', sans-serif;
     }
 
     .table-flag-wrap {
-      width: 30px;
-      height: 22px;
+      width: 38px;
+      height: 27px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--bg-tertiary);
       border: 1px solid var(--border-color);
-      border-radius: 4px;
+      border-radius: 6px;
       overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .table-team:hover .table-flag-wrap {
+      transform: scale(1.1);
     }
 
     .table-team-flag {
@@ -1260,19 +1377,20 @@
       justify-content: center;
       background: var(--bg-primary);
       border: 1px solid var(--border-color);
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      min-width: 65px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      min-width: 70px;
       text-align: center;
     }
 
     .table-score-tbd {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .table-time-cell {
@@ -1281,42 +1399,43 @@
     }
 
     .table-time-bst {
-      font-weight: 700;
+      font-weight: 800;
       color: var(--secondary-color);
     }
 
     .table-venue-cell {
-      max-width: 250px;
+      max-width: 220px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-size: 0.9rem;
     }
-
-
 
     /* Footer */
     footer {
-      background-color: #05070c;
-      color: #94a3b8;
-      padding: 60px 0 30px 0;
+      background-color: #03050a;
+      color: #7d8b9f;
+      padding: 80px 0 40px 0;
       border-top: 1px solid var(--border-color);
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 2;
     }
 
     .footer-top {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      margin-bottom: 40px;
+      gap: 48px;
+      margin-bottom: 48px;
     }
 
     .footer-col-desc h3 {
       color: #fff;
-      font-size: 1.2rem;
-      margin-bottom: 15px;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .footer-col-desc h3 i {
@@ -1324,22 +1443,27 @@
     }
 
     .footer-col-desc p {
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .footer-col-links h4, .footer-col-social h4 {
       color: #fff;
       font-size: 0.95rem;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
+      font-weight: 800;
     }
 
     .footer-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      transition: color 0.2s;
     }
 
     .footer-links a:hover {
@@ -1348,51 +1472,56 @@
 
     .social-icons {
       display: flex;
-      gap: 15px;
+      gap: 12px;
     }
 
     .social-btn {
-      width: 36px;
-      height: 36px;
-      background-color: #1e293b;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: #fff;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .social-btn:hover {
       background-color: var(--primary-color);
-      transform: translateY(-2px);
+      color: var(--bg-primary);
+      border-color: var(--primary-color);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 15px rgba(0, 245, 155, 0.2);
     }
 
     .footer-bottom {
-      border-top: 1px solid #1e293b;
-      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 40px;
       text-align: center;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
     }
 
     .footer-disclaimer {
-      font-size: 0.75rem;
-      color: #64748b;
-      max-width: 600px;
-      margin: 15px auto 0 auto;
-      line-height: 1.4;
+      font-size: 0.78rem;
+      color: #4b5563;
+      max-width: 750px;
+      margin: 24px auto 0 auto;
+      line-height: 1.5;
+      text-align: center;
     }
 
     /* Keyframe Animations */
     @keyframes slideUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
       }
       to {
         opacity: 1;
@@ -1403,7 +1532,7 @@
     /* Responsive Queries */
     @media (max-width: 1024px) {
       .hero-title {
-        font-size: 2.5rem;
+        font-size: 3.2rem;
       }
       .featured-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1414,7 +1543,21 @@
     }
 
     @media (max-width: 768px) {
-      /* Mobile Header Nav */
+      header {
+        top: 0;
+        width: 100%;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+
+      .nav-container {
+        padding: 0 16px;
+      }
+
       .menu-toggle {
         display: block;
       }
@@ -1427,10 +1570,11 @@
         background-color: var(--bg-tertiary);
         border-bottom: 1px solid var(--border-color);
         flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        display: none; /* Managed by JS */
+        padding: 24px;
+        gap: 20px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        display: none;
+        animation: slideUp 0.3s ease forwards;
       }
 
       nav.open {
@@ -1441,48 +1585,55 @@
         flex-direction: column;
         width: 100%;
         text-align: center;
-        gap: 10px;
+        gap: 12px;
       }
 
       .nav-links a {
         display: block;
         width: 100%;
+        padding: 12px;
       }
 
       .theme-toggle-btn {
         width: 100%;
+        height: 46px;
       }
 
       /* Hero Section Mobile */
       .hero-section {
-        padding: 110px 20px 50px 20px;
+        padding: 140px 16px 60px 16px;
       }
       .hero-title {
-        font-size: 2rem;
+        font-size: 2.4rem;
       }
       .hero-stats {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
       }
       .countdown-container {
-        padding: 10px 15px;
-        gap: 8px;
+        padding: 16px 20px;
+        gap: 10px;
       }
       .countdown-item {
-        min-width: 55px;
+        min-width: 60px;
       }
       .countdown-value {
-        font-size: 1.6rem;
+        font-size: 2.2rem;
       }
 
       /* Grid Mobile Adjustments */
       .today-grid, .featured-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
       .card-featured-final {
         grid-column: span 1;
       }
 
       /* Filters Mobile */
+      .filter-wrapper {
+        padding: 16px;
+      }
       .filter-row-bottom {
         flex-direction: column;
         align-items: flex-start;
@@ -1494,11 +1645,25 @@
       /* Footer Mobile */
       .footer-top {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 32px;
       }
       .footer-bottom {
         flex-direction: column;
         text-align: center;
+      }
+
+      .live-update-bar {
+        border-radius: 24px;
+        padding: 10px 18px;
+        bottom: 12px;
+        width: calc(100% - 24px);
+        font-size: 0.78rem;
+      }
+      .live-update-right {
+        gap: 10px;
+      }
+      .live-next-update-bar {
+        width: 40px;
       }
     }
 
@@ -1507,7 +1672,7 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-primary);
@@ -1516,27 +1681,27 @@
     .upcoming-countdown-timer {
       background-color: var(--accent-color);
       color: #fff;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 800;
       font-family: 'Outfit', sans-serif;
-      margin-left: 5px;
+      margin-left: 6px;
       display: inline-block;
-      box-shadow: 0 0 10px rgba(226, 26, 60, 0.4);
+      box-shadow: 0 0 15px rgba(255, 42, 95, 0.4);
       animation: pulseCountdown 1.5s infinite;
     }
 
     @keyframes pulseCountdown {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(226, 26, 60, 0.4); }
-      50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(226, 26, 60, 0.6); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 42, 95, 0.4); }
+      50% { transform: scale(1.04); box-shadow: 0 0 18px rgba(255, 42, 95, 0.65); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Navigation Header -->
+  <!-- Sticky Floating Navigation Header -->
   <header>
-    <div class="container nav-container">
+    <div class="nav-container">
       <a href="#" class="logo">
         <i class="fa-solid fa-futbol"></i>
         <span>FIFA 2026 BST</span>
@@ -1569,7 +1734,7 @@
         Tournament Underway
       </div>
       <h1 class="hero-title">FIFA World Cup 2026</h1>
-      <p class="hero-subtitle font-title" style="color: var(--secondary-color); font-weight: 600; margin-top: -10px; margin-bottom: 20px; font-size: 1.3rem;">
+      <p class="hero-subtitle font-title" style="color: var(--secondary-color); font-weight: 700; margin-top: -15px; margin-bottom: 24px; font-size: 1.4rem; letter-spacing: 0.5px;">
         Full Schedule in Bangladesh Time (BST, UTC+6)
       </p>
       <p class="hero-subtitle">
@@ -1623,8 +1788,8 @@
       </div>
 
       <!-- Quick Teams CTA -->
-      <div style="margin-top: 25px;">
-        <button class="btn-action" style="background: rgba(0,168,107,0.12); border: 1px solid rgba(0,168,107,0.35); color: var(--primary-color);" onclick="location.href='teams.html'">
+      <div style="margin-top: 35px;">
+        <button class="btn-action" style="background: rgba(0, 245, 155, 0.08); border: 1px solid rgba(0, 245, 155, 0.25); color: var(--primary-color);" onclick="location.href='teams.html'">
           <i class="fa-solid fa-futbol"></i> View All Teams (48)
         </button>
       </div>
@@ -1632,11 +1797,11 @@
   </section>
 
   <!-- Upcoming Matches Section -->
-  <section class="upcoming-section" id="upcoming" style="padding-top: 40px;">
+  <section class="upcoming-section" id="upcoming" style="padding-top: 50px;">
     <div class="container">
       <div class="section-header">
         <div class="section-title-wrap">
-          <i class="fa-solid fa-clock" style="color: var(--primary-color);"></i>
+          <i class="fa-solid fa-clock"></i>
           <div>
             <h2 class="section-title">Upcoming Match</h2>
             <p class="section-desc" id="upcoming-countdown-text">Finding the next match...</p>
@@ -1822,117 +1987,7 @@
   <!-- JavaScript Logic -->
   <script>
     // --------------------------------------------------
-    // 1. DATASET DEFINITION (All 104 matches)
-    // --------------------------------------------------
-    const matches = [
-      { id: 1, stage: 'Group Stage', group: 'Group A', team1: 'Mexico', team2: 'South Africa', team1_code: 'mx', team2_code: 'za', utc_time: '2026-06-11T21:30:00Z', venue: 'Mexico City Stadium, Mexico City', score1: 2, score2: 0, status: 'Completed', featured: true },
-      { id: 2, stage: 'Group Stage', group: 'Group A', team1: 'Korea Republic', team2: 'Czechia', team1_code: 'kr', team2_code: 'cz', utc_time: '2026-06-12T01:00:00Z', venue: 'Guadalajara Stadium, Guadalajara', score1: 2, score2: 1, status: 'Completed', featured: false },
-      { id: 3, stage: 'Group Stage', group: 'Group B', team1: 'Canada', team2: 'Bosnia and Herzegovina', team1_code: 'ca', team2_code: 'ba', utc_time: '2026-06-12T23:00:00Z', venue: 'Toronto Stadium, Toronto', score1: 1, score2: 1, status: 'Completed', featured: false },
-      { id: 4, stage: 'Group Stage', group: 'Group D', team1: 'USA', team2: 'Paraguay', team1_code: 'us', team2_code: 'py', utc_time: '2026-06-13T02:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: 4, score2: 1, status: 'Completed', featured: false },
-      { id: 5, stage: 'Group Stage', group: 'Group B', team1: 'Qatar', team2: 'Switzerland', team1_code: 'qa', team2_code: 'ch', utc_time: '2026-06-13T17:00:00Z', venue: 'San Francisco Bay Area Stadium, Santa Clara', score1: 1, score2: 1, status: 'Completed', featured: false },
-      { id: 6, stage: 'Group Stage', group: 'Group D', team1: 'Australia', team2: 'Türkiye', team1_code: 'au', team2_code: 'tr', utc_time: '2026-06-14T20:00:00Z', venue: 'BC Place Vancouver, Vancouver', score1: 2, score2: 0, status: 'Completed', featured: false },
-      { id: 7, stage: 'Group Stage', group: 'Group C', team1: 'Brazil', team2: 'Morocco', team1_code: 'br', team2_code: 'ma', utc_time: '2026-06-13T23:00:00Z', venue: 'New York/New Jersey Stadium, East Rutherford', score1: 1, score2: 1, status: 'Completed', featured: false },
-      { id: 8, stage: 'Group Stage', group: 'Group C', team1: 'Haiti', team2: 'Scotland', team1_code: 'ht', team2_code: 'gb-sct', utc_time: '2026-06-14T02:00:00Z', venue: 'Boston Stadium, Boston', score1: 0, score2: 1, status: 'Completed', featured: false },
-      { id: 9, stage: 'Group Stage', group: 'Group E', team1: 'Germany', team2: 'Curaçao', team1_code: 'de', team2_code: 'cw', utc_time: '2026-06-14T17:00:00Z', venue: 'Houston Stadium, Houston', score1: 7, score2: 1, status: 'Completed', featured: false },
-      { id: 10, stage: 'Group Stage', group: 'Group E', team1: 'Côte d\'Ivoire', team2: 'Ecuador', team1_code: 'ci', team2_code: 'ec', utc_time: '2026-06-14T20:00:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: 1, score2: 0, status: 'Completed', featured: false },
-      { id: 11, stage: 'Group Stage', group: 'Group F', team1: 'Netherlands', team2: 'Japan', team1_code: 'nl', team2_code: 'jp', utc_time: '2026-06-14T23:00:00Z', venue: 'Dallas Stadium, Arlington', score1: 2, score2: 2, status: 'Completed', featured: false },
-      { id: 12, stage: 'Group Stage', group: 'Group F', team1: 'Sweden', team2: 'Tunisia', team1_code: 'se', team2_code: 'tn', utc_time: '2026-06-15T02:00:00Z', venue: 'Monterrey Stadium, Monterrey', score1: 5, score2: 1, status: 'Completed', featured: false },
-      { id: 13, stage: 'Group Stage', group: 'Group G', team1: 'Belgium', team2: 'Egypt', team1_code: 'be', team2_code: 'eg', utc_time: '2026-06-15T17:00:00Z', venue: 'Seattle Stadium, Seattle', score1: 1, score2: 1, status: 'Completed', featured: false },
-      { id: 14, stage: 'Group Stage', group: 'Group G', team1: 'IR Iran', team2: 'New Zealand', team1_code: 'ir', team2_code: 'nz', utc_time: '2026-06-16T02:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: 2, score2: 2, status: 'Completed', featured: false },
-      { id: 15, stage: 'Group Stage', group: 'Group H', team1: 'Spain', team2: 'Cabo Verde', team1_code: 'es', team2_code: 'cv', utc_time: '2026-06-15T23:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: 0, score2: 0, status: 'Completed', featured: false },
-      { id: 16, stage: 'Group Stage', group: 'Group H', team1: 'Saudi Arabia', team2: 'Uruguay', team1_code: 'sa', team2_code: 'uy', utc_time: '2026-06-16T02:00:00Z', venue: 'Miami Stadium, Miami', score1: 1, score2: 1, status: 'Completed', featured: false },
-      { id: 17, stage: 'Group Stage', group: 'Group I', team1: 'France', team2: 'Senegal', team1_code: 'fr', team2_code: 'sn', utc_time: '2026-06-16T19:00:00Z', venue: 'New York/New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 18, stage: 'Group Stage', group: 'Group I', team1: 'Iraq', team2: 'Norway', team1_code: 'iq', team2_code: 'no', utc_time: '2026-06-16T22:00:00Z', venue: 'Boston Stadium, Boston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 19, stage: 'Group Stage', group: 'Group J', team1: 'Argentina', team2: 'Algeria', team1_code: 'ar', team2_code: 'dz', utc_time: '2026-06-17T01:00:00Z', venue: 'Kansas City Stadium, Kansas City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 20, stage: 'Group Stage', group: 'Group J', team1: 'Austria', team2: 'Jordan', team1_code: 'at', team2_code: 'jo', utc_time: '2026-06-17T04:00:00Z', venue: 'San Francisco Bay Area Stadium, Santa Clara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 21, stage: 'Group Stage', group: 'Group K', team1: 'Portugal', team2: 'Congo DR', team1_code: 'pt', team2_code: 'cd', utc_time: '2026-06-17T17:00:00Z', venue: 'Houston Stadium, Houston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 22, stage: 'Group Stage', group: 'Group K', team1: 'Uzbekistan', team2: 'Colombia', team1_code: 'uz', team2_code: 'co', utc_time: '2026-06-18T02:00:00Z', venue: 'Mexico City Stadium, Mexico City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 23, stage: 'Group Stage', group: 'Group L', team1: 'England', team2: 'Croatia', team1_code: 'gb-eng', team2_code: 'hr', utc_time: '2026-06-17T20:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 24, stage: 'Group Stage', group: 'Group L', team1: 'Ghana', team2: 'Panama', team1_code: 'gh', team2_code: 'pa', utc_time: '2026-06-17T23:00:00Z', venue: 'Toronto Stadium, Toronto', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 25, stage: 'Group Stage', group: 'Group I', team1: 'Norway', team2: 'France', team1_code: 'no', team2_code: 'fr', utc_time: '2026-06-26T19:00:00Z', venue: 'Boston Stadium, Boston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 26, stage: 'Group Stage', group: 'Group I', team1: 'Senegal', team2: 'Iraq', team1_code: 'sn', team2_code: 'iq', utc_time: '2026-06-26T19:00:00Z', venue: 'Toronto Stadium, Toronto', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 27, stage: 'Group Stage', group: 'Group A', team1: 'South Africa', team2: 'Korea Republic', team1_code: 'za', team2_code: 'kr', utc_time: '2026-06-25T01:00:00Z', venue: 'Monterrey Stadium, Monterrey', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 28, stage: 'Group Stage', group: 'Group A', team1: 'Czechia', team2: 'Mexico', team1_code: 'cz', team2_code: 'mx', utc_time: '2026-06-25T01:00:00Z', venue: 'Mexico City Stadium, Mexico City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 29, stage: 'Group Stage', group: 'Group B', team1: 'Canada', team2: 'Qatar', team1_code: 'ca', team2_code: 'qa', utc_time: '2026-06-18T22:00:00Z', venue: 'BC Place Vancouver, Vancouver', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 30, stage: 'Group Stage', group: 'Group B', team1: 'Switzerland', team2: 'Bosnia and Herzegovina', team1_code: 'ch', team2_code: 'ba', utc_time: '2026-06-18T19:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 31, stage: 'Group Stage', group: 'Group C', team1: 'Scotland', team2: 'Morocco', team1_code: 'gb-sct', team2_code: 'ma', utc_time: '2026-06-19T22:00:00Z', venue: 'Boston Stadium, Boston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 32, stage: 'Group Stage', group: 'Group C', team1: 'Brazil', team2: 'Haiti', team1_code: 'br', team2_code: 'ht', utc_time: '2026-06-20T00:30:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 33, stage: 'Group Stage', group: 'Group D', team1: 'USA', team2: 'Australia', team1_code: 'us', team2_code: 'au', utc_time: '2026-06-19T19:00:00Z', venue: 'Seattle Stadium, Seattle', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 34, stage: 'Group Stage', group: 'Group D', team1: 'Türkiye', team2: 'Paraguay', team1_code: 'tr', team2_code: 'py', utc_time: '2026-06-20T03:00:00Z', venue: 'San Francisco Bay Area Stadium, Santa Clara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 35, stage: 'Group Stage', group: 'Group E', team1: 'Germany', team2: 'Côte d\'Ivoire', team1_code: 'de', team2_code: 'ci', utc_time: '2026-06-20T20:00:00Z', venue: 'Toronto Stadium, Toronto', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 36, stage: 'Group Stage', group: 'Group E', team1: 'Ecuador', team2: 'Curaçao', team1_code: 'ec', team2_code: 'cw', utc_time: '2026-06-21T00:00:00Z', venue: 'Kansas City Stadium, Kansas City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 37, stage: 'Group Stage', group: 'Group F', team1: 'Netherlands', team2: 'Sweden', team1_code: 'nl', team2_code: 'se', utc_time: '2026-06-20T17:00:00Z', venue: 'Houston Stadium, Houston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 38, stage: 'Group Stage', group: 'Group F', team1: 'Tunisia', team2: 'Japan', team1_code: 'tn', team2_code: 'jp', utc_time: '2026-06-21T04:00:00Z', venue: 'Monterrey Stadium, Monterrey', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 39, stage: 'Group Stage', group: 'Group G', team1: 'Belgium', team2: 'IR Iran', team1_code: 'be', team2_code: 'ir', utc_time: '2026-06-21T19:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 40, stage: 'Group Stage', group: 'Group G', team1: 'New Zealand', team2: 'Egypt', team1_code: 'nz', team2_code: 'eg', utc_time: '2026-06-22T01:00:00Z', venue: 'BC Place Vancouver, Vancouver', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 41, stage: 'Group Stage', group: 'Group H', team1: 'Uruguay', team2: 'Spain', team1_code: 'uy', team2_code: 'es', utc_time: '2026-06-27T00:00:00Z', venue: 'Guadalajara Stadium, Guadalajara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 42, stage: 'Group Stage', group: 'Group H', team1: 'Cabo Verde', team2: 'Saudi Arabia', team1_code: 'cv', team2_code: 'sa', utc_time: '2026-06-27T00:00:00Z', venue: 'Houston Stadium, Houston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 43, stage: 'Group Stage', group: 'Group J', team1: 'Jordan', team2: 'Argentina', team1_code: 'jo', team2_code: 'ar', utc_time: '2026-06-28T02:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 44, stage: 'Group Stage', group: 'Group J', team1: 'Algeria', team2: 'Austria', team1_code: 'dz', team2_code: 'at', utc_time: '2026-06-28T02:00:00Z', venue: 'Kansas City Stadium, Kansas City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 45, stage: 'Group Stage', group: 'Group K', team1: 'Portugal', team2: 'Uzbekistan', team1_code: 'pt', team2_code: 'uz', utc_time: '2026-06-23T17:00:00Z', venue: 'Houston Stadium, Houston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 46, stage: 'Group Stage', group: 'Group K', team1: 'Colombia', team2: 'Congo DR', team1_code: 'co', team2_code: 'cd', utc_time: '2026-06-24T02:00:00Z', venue: 'Guadalajara Stadium, Guadalajara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 47, stage: 'Group Stage', group: 'Group L', team1: 'Panama', team2: 'England', team1_code: 'pa', team2_code: 'gb-eng', utc_time: '2026-06-27T21:00:00Z', venue: 'New York/New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 48, stage: 'Group Stage', group: 'Group L', team1: 'Croatia', team2: 'Ghana', team1_code: 'hr', team2_code: 'gh', utc_time: '2026-06-27T21:00:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 49, stage: 'Group Stage', group: 'Group A', team1: 'Czechia', team2: 'South Africa', team1_code: 'cz', team2_code: 'za', utc_time: '2026-06-18T16:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 50, stage: 'Group Stage', group: 'Group A', team1: 'Mexico', team2: 'Korea Republic', team1_code: 'mx', team2_code: 'kr', utc_time: '2026-06-19T01:00:00Z', venue: 'Guadalajara Stadium, Guadalajara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 51, stage: 'Group Stage', group: 'Group B', team1: 'Bosnia and Herzegovina', team2: 'Qatar', team1_code: 'ba', team2_code: 'qa', utc_time: '2026-06-24T19:00:00Z', venue: 'Seattle Stadium, Seattle', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 52, stage: 'Group Stage', group: 'Group B', team1: 'Switzerland', team2: 'Canada', team1_code: 'ch', team2_code: 'ca', utc_time: '2026-06-24T19:00:00Z', venue: 'BC Place Vancouver, Vancouver', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 53, stage: 'Group Stage', group: 'Group C', team1: 'Morocco', team2: 'Haiti', team1_code: 'ma', team2_code: 'ht', utc_time: '2026-06-24T22:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 54, stage: 'Group Stage', group: 'Group C', team1: 'Scotland', team2: 'Brazil', team1_code: 'gb-sct', team2_code: 'br', utc_time: '2026-06-24T22:00:00Z', venue: 'Miami Stadium, Miami', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 55, stage: 'Group Stage', group: 'Group D', team1: 'Paraguay', team2: 'Australia', team1_code: 'py', team2_code: 'au', utc_time: '2026-06-26T02:00:00Z', venue: 'San Francisco Bay Area Stadium, Santa Clara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 56, stage: 'Group Stage', group: 'Group D', team1: 'Türkiye', team2: 'USA', team1_code: 'tr', team2_code: 'us', utc_time: '2026-06-26T02:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 57, stage: 'Group Stage', group: 'Group E', team1: 'Curaçao', team2: 'Côte d\'Ivoire', team1_code: 'cw', team2_code: 'ci', utc_time: '2026-06-25T20:00:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 58, stage: 'Group Stage', group: 'Group E', team1: 'Ecuador', team2: 'Germany', team1_code: 'ec', team2_code: 'de', utc_time: '2026-06-25T20:00:00Z', venue: 'New York/New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 59, stage: 'Group Stage', group: 'Group F', team1: 'Japan', team2: 'Sweden', team1_code: 'jp', team2_code: 'se', utc_time: '2026-06-25T23:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 60, stage: 'Group Stage', group: 'Group F', team1: 'Tunisia', team2: 'Netherlands', team1_code: 'tn', team2_code: 'nl', utc_time: '2026-06-25T23:00:00Z', venue: 'Kansas City Stadium, Kansas City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 61, stage: 'Group Stage', group: 'Group G', team1: 'Egypt', team2: 'IR Iran', team1_code: 'eg', team2_code: 'ir', utc_time: '2026-06-27T03:00:00Z', venue: 'Seattle Stadium, Seattle', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 62, stage: 'Group Stage', group: 'Group G', team1: 'New Zealand', team2: 'Belgium', team1_code: 'nz', team2_code: 'be', utc_time: '2026-06-27T03:00:00Z', venue: 'BC Place Vancouver, Vancouver', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 63, stage: 'Group Stage', group: 'Group H', team1: 'Uruguay', team2: 'Cabo Verde', team1_code: 'uy', team2_code: 'cv', utc_time: '2026-06-21T22:00:00Z', venue: 'Miami Stadium, Miami', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 64, stage: 'Group Stage', group: 'Group H', team1: 'Spain', team2: 'Saudi Arabia', team1_code: 'es', team2_code: 'sa', utc_time: '2026-06-21T16:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 65, stage: 'Group Stage', group: 'Group I', team1: 'Norway', team2: 'Senegal', team1_code: 'no', team2_code: 'sn', utc_time: '2026-06-23T00:00:00Z', venue: 'New York/New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 66, stage: 'Group Stage', group: 'Group I', team1: 'France', team2: 'Iraq', team1_code: 'fr', team2_code: 'iq', utc_time: '2026-06-22T21:00:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 67, stage: 'Group Stage', group: 'Group J', team1: 'Jordan', team2: 'Algeria', team1_code: 'jo', team2_code: 'dz', utc_time: '2026-06-23T03:00:00Z', venue: 'San Francisco Bay Area Stadium, Santa Clara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 68, stage: 'Group Stage', group: 'Group J', team1: 'Argentina', team2: 'Austria', team1_code: 'ar', team2_code: 'at', utc_time: '2026-06-22T17:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 69, stage: 'Group Stage', group: 'Group K', team1: 'Congo DR', team2: 'Uzbekistan', team1_code: 'cd', team2_code: 'uz', utc_time: '2026-06-27T23:30:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 70, stage: 'Group Stage', group: 'Group K', team1: 'Colombia', team2: 'Portugal', team1_code: 'co', team2_code: 'pt', utc_time: '2026-06-27T23:30:00Z', venue: 'Miami Stadium, Miami', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 71, stage: 'Group Stage', group: 'Group L', team1: 'Panama', team2: 'Croatia', team1_code: 'pa', team2_code: 'hr', utc_time: '2026-06-23T23:00:00Z', venue: 'Toronto Stadium, Toronto', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 72, stage: 'Group Stage', group: 'Group L', team1: 'England', team2: 'Ghana', team1_code: 'gb-eng', team2_code: 'gh', utc_time: '2026-06-23T20:00:00Z', venue: 'Boston Stadium, Boston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 73, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group A', team2: 'Runner-up Group B', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-06-28T22:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 74, stage: 'Round of 32', group: 'Knockout', team1: 'Runner-up Group A', team2: 'Runner-up Group C', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-06-29T02:00:00Z', venue: 'San Francisco Bay Area Stadium, Santa Clara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 75, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group B', team2: 'Best 3rd A/C/D', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-06-29T22:00:00Z', venue: 'Boston Stadium, Boston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 76, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group C', team2: 'Best 3rd B/E/F', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-06-30T02:00:00Z', venue: 'Seattle Stadium, Seattle', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 77, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group D', team2: 'Best 3rd C/G/H', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-06-30T22:00:00Z', venue: 'New York New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 78, stage: 'Round of 32', group: 'Knockout', team1: 'Runner-up Group D', team2: 'Runner-up Group E', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-01T02:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 79, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group E', team2: 'Runner-up Group F', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-01T22:00:00Z', venue: 'Houston Stadium, Houston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 80, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group F', team2: 'Best 3rd D/I/J', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-02T02:00:00Z', venue: 'Kansas City Stadium, Kansas City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 81, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group G', team2: 'Runner-up Group H', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-02T22:00:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 82, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group H', team2: 'Best 3rd E/K/L', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-03T02:00:00Z', venue: 'Miami Stadium, Miami', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 83, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group I', team2: 'Runner-up Group J', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-03T18:00:00Z', venue: 'Toronto Stadium, Toronto', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 84, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group J', team2: 'Best 3rd F/G/H', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-03T22:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 85, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group K', team2: 'Runner-up Group L', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-04T02:00:00Z', venue: 'Vancouver Stadium, Vancouver', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 86, stage: 'Round of 32', group: 'Knockout', team1: 'Winner Group L', team2: 'Best 3rd I/K/L', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-04T18:00:00Z', venue: 'Monterrey Stadium, Monterrey', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 87, stage: 'Round of 32', group: 'Knockout', team1: 'Runner-up Group G', team2: 'Runner-up Group I', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-04T22:00:00Z', venue: 'Guadalajara Stadium, Guadalajara', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 88, stage: 'Round of 32', group: 'Knockout', team1: 'Runner-up Group K', team2: 'Runner-up Group H', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-05T02:00:00Z', venue: 'Mexico City Stadium, Mexico City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 89, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 73', team2: 'Winner Match 74', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-04T22:00:00Z', venue: 'Philadelphia Stadium, Philadelphia', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 90, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 75', team2: 'Winner Match 76', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-05T02:00:00Z', venue: 'Houston Stadium, Houston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 91, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 77', team2: 'Winner Match 78', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-05T22:00:00Z', venue: 'New York New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 92, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 79', team2: 'Winner Match 80', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-06T02:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 93, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 81', team2: 'Winner Match 82', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-06T22:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 94, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 83', team2: 'Winner Match 84', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-07T02:00:00Z', venue: 'Vancouver Stadium, Vancouver', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 95, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 85', team2: 'Winner Match 86', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-07T22:00:00Z', venue: 'Seattle Stadium, Seattle', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 96, stage: 'Round of 16', group: 'Knockout', team1: 'Winner Match 87', team2: 'Winner Match 88', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-08T02:00:00Z', venue: 'Mexico City Stadium, Mexico City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 97, stage: 'Quarter-final', group: 'Knockout', team1: 'Winner Match 89', team2: 'Winner Match 90', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-09T22:00:00Z', venue: 'Boston Stadium, Boston', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 98, stage: 'Quarter-final', group: 'Knockout', team1: 'Winner Match 91', team2: 'Winner Match 92', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-10T02:00:00Z', venue: 'Los Angeles Stadium, Los Angeles', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 99, stage: 'Quarter-final', group: 'Knockout', team1: 'Winner Match 93', team2: 'Winner Match 94', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-10T22:00:00Z', venue: 'Miami Stadium, Miami', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 100, stage: 'Quarter-final', group: 'Knockout', team1: 'Winner Match 95', team2: 'Winner Match 96', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-11T02:00:00Z', venue: 'Kansas City Stadium, Kansas City', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 101, stage: 'Semi-final', group: 'Knockout', team1: 'Winner Match 97', team2: 'Winner Match 98', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-15T01:00:00Z', venue: 'Dallas Stadium, Arlington', score1: null, score2: null, status: 'Scheduled', featured: true },
-      { id: 102, stage: 'Semi-final', group: 'Knockout', team1: 'Winner Match 99', team2: 'Winner Match 100', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-16T01:00:00Z', venue: 'Atlanta Stadium, Atlanta', score1: null, score2: null, status: 'Scheduled', featured: true },
-      { id: 103, stage: 'Third Place Match', group: 'Knockout', team1: 'Loser Match 101', team2: 'Loser Match 102', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-18T20:00:00Z', venue: 'Miami Stadium, Miami', score1: null, score2: null, status: 'Scheduled', featured: false },
-      { id: 104, stage: 'Final', group: 'Knockout', team1: 'Winner Match 101', team2: 'Winner Match 102', team1_code: 'tbd', team2_code: 'tbd', utc_time: '2026-07-19T20:00:00Z', venue: 'New York New Jersey Stadium, East Rutherford', score1: null, score2: null, status: 'Scheduled', featured: true }
-    ];
-
-    // --------------------------------------------------
-    // 2. STATE VARIABLES
+    // STATE VARIABLES (matches array is loaded via matches.js)
     // --------------------------------------------------
     let currentTheme = 'dark';
     let currentView = 'table'; // 'table' or 'card'
@@ -1983,7 +2038,6 @@
 
     // Helper to extract calendar date string (YYYY-MM-DD in BST)
     function getBstCalendarDate(dateObj) {
-      // Formats date into YYYY-MM-DD using Dhaka timezone
       const parts = new Intl.DateTimeFormat('en-US', {
         timeZone: 'Asia/Dhaka',
         year: 'numeric',
@@ -2019,7 +2073,7 @@
     }
 
     // --------------------------------------------------
-    // 3. UI INITIALIZATION AND DOM MANIPULATION
+    // UI INITIALIZATION AND DOM MANIPULATION
     // --------------------------------------------------
     document.addEventListener('DOMContentLoaded', () => {
       // Theme toggling initialization
@@ -2140,7 +2194,6 @@
         const option = document.createElement('option');
         option.value = dateStr;
         
-        // Human readable date label in BST
         const d = new Date(dateStr + 'T00:00:00+06:00');
         const readableStr = new Intl.DateTimeFormat('en-US', {
           month: 'short',
@@ -2191,23 +2244,6 @@
       menuToggleBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
     }
 
-    // Flag CDN helper
-    function getTeamFlagHTML(teamName, teamCode) {
-      if (!teamCode || teamCode === 'tbd') {
-        return `<span class="flag-placeholder"><i class="fa-solid fa-circle-question"></i></span>`;
-      }
-      const code = teamCode.toLowerCase();
-      // Special check for UK constituent countries flagcdn syntax
-      return `<img src="https://flagcdn.com/w40/${code}.png" 
-                   srcset="https://flagcdn.com/w80/${code}.png 2x" 
-                   width="24" 
-                   height="18" 
-                   alt="${teamName} flag" 
-                   class="team-flag"
-                   onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-              <span class="flag-placeholder" style="display:none;"><i class="fa-solid fa-futbol"></i></span>`;
-    }
-
     // Get stage badge class
     function getStageClass(stage) {
       switch(stage) {
@@ -2223,12 +2259,9 @@
     }
 
     // --------------------------------------------------
-    // 4. MAIN FEATURES & LOGIC
+    // COUNTDOWN CLOCK
     // --------------------------------------------------
-
-    // Feature: Countdown Timer to the opening match / Final
     function initCountdown() {
-      // Opening match time: Match 1 is June 11, 2026, 21:30 UTC
       const openingMatchDate = new Date('2026-06-11T21:30:00Z');
       const finalMatchDate = new Date('2026-07-19T20:00:00Z');
       
@@ -2240,9 +2273,7 @@
       const liveBadge = document.getElementById('live-badge');
 
       function updateClock() {
-        // Calculate dynamic relative time
         let nowTime = getAccurateNow();
-
         let targetDate = openingMatchDate;
         
         if (nowTime < openingMatchDate) {
@@ -2259,7 +2290,7 @@
           timerHours.textContent = "00";
           timerMins.textContent = "00";
           timerSecs.textContent = "00";
-          return; // Stop updating
+          return;
         }
 
         const diffMs = targetDate.getTime() - nowTime.getTime();
@@ -2280,7 +2311,9 @@
       setInterval(updateClock, 1000);
     }
 
-    // Feature: Upcoming Match Section
+    // --------------------------------------------------
+    // UPCOMING MATCH SECTION
+    // --------------------------------------------------
     let upcomingMatchInterval = null;
     function renderUpcomingMatch() {
       const container = document.getElementById('upcoming-matches-container');
@@ -2292,10 +2325,7 @@
       }
 
       const now = getAccurateNow();
-
-      // Sort matches to ensure we get the absolute next one chronologically
       const sortedMatches = [...matches].sort((a,b) => new Date(a.utc_time) - new Date(b.utc_time));
-      // find next match
       const futureMatches = sortedMatches.filter(m => new Date(m.utc_time) > now);
 
       if (futureMatches.length === 0) {
@@ -2304,7 +2334,6 @@
         return;
       }
 
-      // Take the next chronological match, then show all matches that share the same BST calendar date
       const nextMatch = futureMatches[0];
       const nextMatchTime = new Date(nextMatch.utc_time);
       const nextMatchBstDateStr = getBstCalendarDate(nextMatchTime);
@@ -2318,7 +2347,6 @@
 
       upcomingSameDateMatches.forEach((m) => {
         const matchTime = new Date(m.utc_time);
-
         const matchCard = document.createElement('div');
         matchCard.className = 'match-card';
 
@@ -2378,14 +2406,13 @@
         container.appendChild(matchCard);
       });
 
-      // Countdown should be based on the next chronological match (first card)
       function updateUpcomingTimer() {
         const curr = getAccurateNow();
         const diffMs = nextMatchTime.getTime() - curr.getTime();
 
         if (diffMs <= 0) {
           textDesc.textContent = "Match started!";
-          renderUpcomingMatch(); // Re-render to show the next one
+          renderUpcomingMatch(); 
           return;
         }
 
@@ -2405,17 +2432,16 @@
       upcomingMatchInterval = setInterval(updateUpcomingTimer, 1000);
     }
 
-    // Feature: Today's Matches Section
+    // --------------------------------------------------
+    // TODAY'S MATCHES SECTION
+    // --------------------------------------------------
     function renderTodayMatches() {
       const container = document.getElementById('today-matches-container');
       const dateBanner = document.getElementById('today-date-banner');
       
-      // Display the current active date in BST
       dateBanner.textContent = formatBstDate(activeSystemDate);
-      
       const todayBstStr = getBstCalendarDate(activeSystemDate);
       
-      // Filter matches by current BST date
       const todayMatches = matches.filter(m => {
         const matchTime = new Date(m.utc_time);
         return getBstCalendarDate(matchTime) === todayBstStr;
@@ -2424,7 +2450,6 @@
       container.innerHTML = '';
       
       if (todayMatches.length === 0) {
-        // Find next match date
         const futureMatches = matches.filter(m => new Date(m.utc_time) > activeSystemDate);
         let nextMatchBtnHTML = '';
         
@@ -2433,7 +2458,7 @@
           const nextMatchBstDate = getBstCalendarDate(new Date(nextMatch.utc_time));
           
           nextMatchBtnHTML = `
-            <button class="btn-action" onclick="filterByBstDate('${nextMatchBstDate}')">
+            <button class="btn-action" onclick="filterByBstDate('${nextMatchBstDate}')" style="margin-top: 10px;">
               <i class="fa-solid fa-arrow-right"></i> View Next Matches (${bstDayMonthFormatter.format(new Date(nextMatch.utc_time))})
             </button>
           `;
@@ -2454,8 +2479,6 @@
         const matchCard = document.createElement('div');
         matchCard.className = 'match-card';
         
-        // Check if live (match in progress)
-        // Matches are about 2 hours long
         const isLive = activeSystemDate >= matchTime && activeSystemDate <= new Date(matchTime.getTime() + 2 * 60 * 60 * 1000);
         let scoreHTML = `<div class="score-tbd">VS</div>`;
         let statusPillHTML = `<span class="match-status-pill status-scheduled">Scheduled</span>`;
@@ -2472,9 +2495,9 @@
         } else if (isLive) {
           scoreHTML = `
             <div class="score-display">
-              <span style="color: var(--accent-color);">0</span>
+              <span class="live-score-num">0</span>
               <span class="score-hyphen">-</span>
-              <span style="color: var(--accent-color);">0</span>
+              <span class="live-score-num">0</span>
             </div>
           `;
           statusPillHTML = `
@@ -2523,19 +2546,17 @@
       });
     }
 
-    // Feature: Filter and Quick Match Date selector helper
     function filterByBstDate(dateStr) {
       document.getElementById('date-filter').value = dateStr;
       currentFilters.date = dateStr;
-      
-      // Scroll to full schedule section
       document.getElementById('schedule').scrollIntoView({ behavior: 'smooth' });
-      
       renderSchedule();
       updateClearFiltersBtn();
     }
 
-    // Feature: Featured Matches Section
+    // --------------------------------------------------
+    // FEATURED MATCHES SECTION
+    // --------------------------------------------------
     function renderFeaturedMatches() {
       const container = document.getElementById('featured-matches-container');
       const featured = matches.filter(m => m.featured === true);
@@ -2625,17 +2646,14 @@
       });
     }
 
-
     // --------------------------------------------------
-    // 5. SCHEDULE SEARCH & FILTER RENDERING
+    // FILTERS AND SEARCH
     // --------------------------------------------------
-
     function getFilteredMatches() {
       return matches.filter(m => {
         const matchDateObj = new Date(m.utc_time);
         const matchBstDateStr = getBstCalendarDate(matchDateObj);
         
-        // 1. Search Query Check
         const query = currentFilters.search.toLowerCase().trim();
         const matchesSearch = !query || 
           m.team1.toLowerCase().includes(query) || 
@@ -2644,25 +2662,18 @@
           m.stage.toLowerCase().includes(query) ||
           (m.group && m.group.toLowerCase().includes(query));
 
-        // 2. Stage Dropdown Check
         const matchesStage = currentFilters.stage === 'all' || m.stage === currentFilters.stage;
-
-        // 3. Date Dropdown Check
         const matchesDate = currentFilters.date === 'all' || matchBstDateStr === currentFilters.date;
-
-        // 4. Team Dropdown Check
         const matchesTeam = currentFilters.team === 'all' || m.team1 === currentFilters.team || m.team2 === currentFilters.team;
 
         return matchesSearch && matchesStage && matchesDate && matchesTeam;
       });
     }
 
-    // Core Schedule Renderer
     function renderSchedule() {
       const wrapper = document.getElementById('schedule-results-wrapper');
       const filtered = getFilteredMatches();
       
-      // Update count badge and show-more container visibility
       const displayedCount = Math.min(scheduleLimit, filtered.length);
       const showMoreContainer = document.getElementById('show-more-container');
       
@@ -2695,7 +2706,6 @@
       }
     }
 
-    // Render Cards View
     function renderCardsView(matchesList, targetContainer) {
       targetContainer.innerHTML = '';
       const cardsGrid = document.createElement('div');
@@ -2774,7 +2784,6 @@
       targetContainer.appendChild(cardsGrid);
     }
 
-    // Render Table View
     function renderTableView(matchesList, targetContainer) {
       targetContainer.innerHTML = '';
       const tableWrapper = document.createElement('div');
@@ -2785,7 +2794,6 @@
       matchesList.forEach(m => {
         const matchTime = new Date(m.utc_time);
         
-        // Formatting specific table content
         const dayName = bstDayNameFormatter.format(matchTime);
         const dayMonth = bstDayMonthFormatter.format(matchTime);
         const timeStr = formatBstTime(matchTime);
@@ -2796,7 +2804,7 @@
         
         if (isRowLive) {
           scoreCellHTML = `
-            <div class="table-score-display" style="background:rgba(226,26,60,0.08);border:1px solid rgba(226,26,60,0.2);">
+            <div class="table-score-display" style="background:rgba(255,42,95,0.08);border:1px solid rgba(255,42,95,0.2);">
               <span class="live-score-num">${m.score1 !== null ? m.score1 : 0}</span>
               <span class="score-hyphen" style="margin:0 4px;">-</span>
               <span class="live-score-num">${m.score2 !== null ? m.score2 : 0}</span>
@@ -2805,7 +2813,7 @@
           statusBadgeHTML = `<span class="match-status-pill status-live"><span style="width:5px;height:5px;background:var(--accent-color);border-radius:50%;display:inline-block;margin-right:3px;"></span>LIVE</span>`;
         } else if (m.status === 'Completed' || m.score1 !== null) {
           scoreCellHTML = `
-            <div class="table-score-display" style="background-color: var(--bg-tertiary);">
+            <div class="table-score-display">
               <span>${m.score1}</span>
               <span class="score-hyphen" style="margin: 0 4px;">-</span>
               <span>${m.score2}</span>
@@ -2867,13 +2875,13 @@
         <table class="schedule-table">
           <thead>
             <tr>
-              <th style="width: 60px;">Match</th>
+              <th style="width: 70px;">Match</th>
               <th style="width: 140px;">Stage/Group</th>
               <th style="width: 110px;">Date</th>
               <th>Fixture</th>
               <th style="width: 110px;">Kick-off</th>
               <th>Venue</th>
-              <th style="width: 110px;">Status</th>
+              <th style="width: 120px;">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -2885,13 +2893,11 @@
     }
 
     // --------------------------------------------------
-    // 6. EVENT HANDLERS
+    // EVENT LISTENERS
     // --------------------------------------------------
     function setupEventListeners() {
-      // Theme Toggle Click
       document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
-      // Show More Button Click
       const btnShowMore = document.getElementById('btn-show-more');
       if (btnShowMore) {
         btnShowMore.addEventListener('click', () => {
@@ -2900,7 +2906,6 @@
         });
       }
 
-      // Search Box Input
       document.getElementById('search-input').addEventListener('input', (e) => {
         currentFilters.search = e.target.value;
         scheduleLimit = 10;
@@ -2908,7 +2913,6 @@
         updateClearFiltersBtn();
       });
 
-      // Stage select filter
       document.getElementById('stage-filter').addEventListener('change', (e) => {
         currentFilters.stage = e.target.value;
         scheduleLimit = 10;
@@ -2916,7 +2920,6 @@
         updateClearFiltersBtn();
       });
 
-      // Date select filter
       document.getElementById('date-filter').addEventListener('change', (e) => {
         currentFilters.date = e.target.value;
         scheduleLimit = 10;
@@ -2924,7 +2927,6 @@
         updateClearFiltersBtn();
       });
 
-      // Team select filter
       document.getElementById('team-filter').addEventListener('change', (e) => {
         currentFilters.team = e.target.value;
         scheduleLimit = 10;
@@ -2932,10 +2934,8 @@
         updateClearFiltersBtn();
       });
 
-      // Clear filters click
       document.getElementById('clear-filters').addEventListener('click', resetAllFilters);
 
-      // View selectors toggles
       document.getElementById('btn-table-view').addEventListener('click', () => {
         if (currentView !== 'table') {
           currentView = 'table';
@@ -2954,14 +2954,12 @@
         }
       });
 
-      // Quick team tag buttons
       const tagButtons = document.querySelectorAll('.tag-btn');
       tagButtons.forEach(btn => {
         btn.addEventListener('click', () => {
           const team = btn.getAttribute('data-team');
           const isActive = btn.classList.contains('active');
           
-          // Toggle tags active state
           tagButtons.forEach(b => b.classList.remove('active'));
           
           if (isActive) {
@@ -2979,15 +2977,12 @@
       });
     }
 
-    // Quick filter by team (e.g. clicking on team name in a fixture card)
     function quickFilterTeam(teamName) {
       if (!teamName || teamName === 'TBD' || teamName.includes('Winner') || teamName.includes('Runner') || teamName.includes('Loser')) return;
       
-      // Update team filters
       currentFilters.team = teamName;
       document.getElementById('team-filter').value = teamName;
       
-      // Highlight corresponding quick tag if it exists
       const tagButtons = document.querySelectorAll('.tag-btn');
       tagButtons.forEach(btn => {
         if (btn.getAttribute('data-team') === teamName) {
@@ -2997,15 +2992,12 @@
         }
       });
 
-      // Scroll to full schedule
       document.getElementById('schedule').scrollIntoView({ behavior: 'smooth' });
-      
       scheduleLimit = 10;
       renderSchedule();
       updateClearFiltersBtn();
     }
 
-    // Reset filters
     function resetAllFilters() {
       currentFilters = {
         search: '',
@@ -3019,7 +3011,6 @@
       document.getElementById('date-filter').value = 'all';
       document.getElementById('team-filter').value = 'all';
 
-      // Clear tags active state
       const tagButtons = document.querySelectorAll('.tag-btn');
       tagButtons.forEach(btn => btn.classList.remove('active'));
 
@@ -3028,7 +3019,6 @@
       updateClearFiltersBtn();
     }
 
-    // Toggle Clear Filters link state
     function updateClearFiltersBtn() {
       const clearBtn = document.getElementById('clear-filters');
       const isFiltered = currentFilters.search !== '' || 
@@ -3039,13 +3029,12 @@
       clearBtn.style.display = isFiltered ? 'inline-block' : 'none';
     }
 
-    // Navigation scroll spy highlights active link
     window.addEventListener('scroll', () => {
       const sections = document.querySelectorAll('section, header');
       const navLinks = document.querySelectorAll('.nav-links a');
       
       let currentSectionId = '';
-      const scrollPos = window.scrollY + 80; // Add navigation height offset
+      const scrollPos = window.scrollY + 100;
       
       sections.forEach(sec => {
         const top = sec.offsetTop;
@@ -3063,23 +3052,19 @@
       });
     });
 
-    // =============================================================
+    // --------------------------------------------------
     // LIVE AUTO-UPDATE ENGINE
-    // Polls TheSportsDB free API every 60 seconds to refresh scores
-    // =============================================================
-
-    const LIVE_UPDATE_INTERVAL_MS = 60000; // 60 seconds
+    // --------------------------------------------------
+    const LIVE_UPDATE_INTERVAL_MS = 60000; 
     const THESPORTSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/3';
 
-    // State for live updater
     let liveUpdateTimer = null;
     let liveCountdownTimer = null;
     let lastUpdatedTime = null;
     let liveUpdateActive = false;
-    let nextUpdateIn = LIVE_UPDATE_INTERVAL_MS / 1000; // seconds
+    let nextUpdateIn = LIVE_UPDATE_INTERVAL_MS / 1000;
     let isCurrentlyFetching = false;
 
-    // Team name aliases: our name → possible API names
     const TEAM_ALIASES = {
       'Korea Republic':          ['South Korea', 'Korea Republic', 'Republic of Korea'],
       'Türkiye':                 ['Turkey', 'Türkiye', 'Turkiye'],
@@ -3094,12 +3079,10 @@
       'Scotland':                ['Scotland'],
     };
 
-    // Normalise a name to lowercase stripped
     function normName(n) {
       return (n || '').toLowerCase().replace(/[^a-z]/g, '');
     }
 
-    // Check if apiTeam matches localTeam (respecting aliases)
     function teamsMatch(localTeam, apiTeam) {
       if (!localTeam || !apiTeam) return false;
       const aliases = TEAM_ALIASES[localTeam] || [localTeam];
@@ -3107,7 +3090,6 @@
       return aliases.some(a => normName(a) === normApi);
     }
 
-    // Try matching a match from our array with an API event
     function findLocalMatch(apiEvent) {
       const apiHome = apiEvent.strHomeTeam;
       const apiAway = apiEvent.strAwayTeam;
@@ -3117,7 +3099,6 @@
       );
     }
 
-    // Apply score from API event to local match
     function applyApiScore(localMatch, apiEvent) {
       const apiHome = apiEvent.strHomeTeam;
       const apiAway = apiEvent.strAwayTeam;
@@ -3149,7 +3130,6 @@
         localMatch.score2 = newS2;
         localMatch.status = finished ? 'Completed' : (isLive ? 'Live' : 'Completed');
 
-        // Notify if score changed (goal!)
         const wasGoal = oldS1 !== null && (newS1 !== oldS1 || newS2 !== oldS2);
         if (wasGoal) {
           const scorer = newS1 > oldS1 ? localMatch.team1 : localMatch.team2;
@@ -3168,7 +3148,6 @@
       return { changed: false, isLive, matchId: localMatch.id };
     }
 
-    // Build today + yesterday + tomorrow dates in UTC (API query range)
     function getQueryDates() {
       const now = new Date();
       const dates = [];
@@ -3180,7 +3159,6 @@
       return [...new Set(dates)];
     }
 
-    // Fetch events for a given date from TheSportsDB
     async function fetchEventsForDate(dateStr) {
       const url = `${THESPORTSDB_BASE}/eventsday.php?d=${dateStr}&s=Soccer`;
       try {
@@ -3193,7 +3171,6 @@
       }
     }
 
-    // Filter to only World Cup 2026 relevant events
     function filterWorldCupEvents(events) {
       const keywords = ['world cup', 'worldcup', 'fifa'];
       return events.filter(ev => {
@@ -3205,7 +3182,6 @@
       });
     }
 
-    // Main live update function
     async function fetchAndApplyLiveScores(isManual = false) {
       if (isCurrentlyFetching) return;
       isCurrentlyFetching = true;
@@ -3225,10 +3201,8 @@
           allEvents = allEvents.concat(events);
         }
 
-        // Filter to World Cup events only
         const wcEvents = filterWorldCupEvents(allEvents);
 
-        // Also keep events where any of our team names appear (belt-and-suspenders)
         const ourTeams = new Set(matches.flatMap(m => [normName(m.team1), normName(m.team2)]));
         const relevantEvents = allEvents.filter(ev => {
           const home = normName(ev.strHomeTeam);
@@ -3260,7 +3234,6 @@
         const timeStr = lastUpdatedTime.toLocaleTimeString('en-BD', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Dhaka' });
 
         if (updatedCount > 0 || liveCount > 0) {
-          // Re-render affected sections
           renderUpcomingMatch();
           renderTodayMatches();
           renderFeaturedMatches();
@@ -3275,7 +3248,6 @@
             showScoreToast(null, null, null, null, null, false, `${updatedCount} score${updatedCount>1?'s':''} updated at ${timeStr}`);
           }
         } else {
-          // Silent in background if no updates or live matches
           if (bar) {
             bar.classList.remove('visible');
           }
@@ -3288,12 +3260,10 @@
         console.warn('[LiveUpdate] Error:', err);
       } finally {
         isCurrentlyFetching = false;
-        // Restart countdown
         startCountdown();
       }
     }
 
-    // Update the status bar UI
     function updateStatusBar(state, text, timeStr) {
       const bar = document.getElementById('live-update-bar');
       const dot = document.getElementById('live-dot');
@@ -3311,7 +3281,7 @@
         dot.classList.add('error');
         textEl.textContent = text;
       } else if (state === 'live') {
-        textEl.innerHTML = `<span style="color:var(--accent-color);font-weight:700;">${text}</span>`;
+        textEl.innerHTML = `<span style="color:var(--primary-color);font-weight:700;">${text}</span>`;
       } else {
         textEl.textContent = text;
       }
@@ -3321,7 +3291,6 @@
       }
     }
 
-    // Countdown bar animation
     function startCountdown() {
       if (liveCountdownTimer) clearInterval(liveCountdownTimer);
       nextUpdateIn = LIVE_UPDATE_INTERVAL_MS / 1000;
@@ -3330,7 +3299,7 @@
       if (fill) {
         fill.style.transition = 'none';
         fill.style.width = '100%';
-        void fill.offsetWidth; // Force reflow
+        void fill.offsetWidth; 
         fill.style.transition = `width ${LIVE_UPDATE_INTERVAL_MS}ms linear`;
         fill.style.width = '0%';
       }
@@ -3343,7 +3312,6 @@
       }, 1000);
     }
 
-    // Toast notification for score changes
     function showScoreToast(team1, team2, s1, s2, scorer, isGoal, customMsg) {
       const container = document.getElementById('score-toast-container');
       if (!container) return;
@@ -3376,39 +3344,30 @@
 
       container.appendChild(toast);
 
-      // Auto-remove after 4 seconds
       setTimeout(() => {
         toast.style.animation = 'toastSlideOut 0.4s ease forwards';
         setTimeout(() => toast.remove(), 400);
       }, 4000);
     }
 
-    // Initialize the live update engine
     function initLiveUpdates() {
-      // First fetch immediately (with slight delay so page fully loads)
       setTimeout(() => fetchAndApplyLiveScores(), 2500);
-
-      // Then poll every 60 seconds
       liveUpdateTimer = setInterval(() => {
         fetchAndApplyLiveScores();
       }, LIVE_UPDATE_INTERVAL_MS);
-
       liveUpdateActive = true;
     }
 
-    // Start on DOM ready (appended to existing DOMContentLoaded)
     document.addEventListener('DOMContentLoaded', () => {
       initLiveUpdates();
     });
 
-    // Manual refresh button
     function manualRefreshNow() {
       fetchAndApplyLiveScores(true);
     }
-
   </script>
 
-  <!-- Live Update Status Bar (fixed at bottom) -->
+  <!-- Live Update Floating Bottom Bar -->
   <div class="live-update-bar" id="live-update-bar">
     <div class="live-update-left">
       <div class="live-dot-indicator" id="live-dot"></div>
