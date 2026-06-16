@@ -1292,142 +1292,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Venue/Time Info Guide Section */
-    .guide-section {
-      padding: 70px 0;
-    }
 
-    /* Teams Section */
-    .teams-grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    .team-mini-card{
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: var(--card-shadow);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .team-mini-card:hover{
-      transform: translateY(-3px);
-      border-color: var(--primary-color);
-    }
-
-    .team-mini-flag{
-      width: 40px;
-      height: 30px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .team-mini-name{
-      font-weight: 700;
-      color: var(--text-primary);
-      word-break: break-word;
-    }
-
-    .team-mini-sub{
-      margin-top: 2px;
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .guide-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-      margin-top: 20px;
-    }
-
-    .guide-card {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: var(--card-shadow);
-    }
-
-    .guide-card-title {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--primary-color);
-    }
-
-    .guide-card p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-    }
-
-    .guide-card ul {
-      list-style-type: none;
-      padding-left: 0;
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .guide-card li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: var(--text-secondary);
-    }
-
-    .guide-card li i {
-      color: var(--primary-color);
-      margin-top: 4px;
-    }
-
-    .stadiums-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .stadium-mini-card {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .stadium-mini-name {
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .stadium-mini-city {
-      color: var(--text-secondary);
-    }
 
     /* Footer */
     footer {
@@ -1546,12 +1411,6 @@
       .card-featured-final {
         grid-column: span 2;
       }
-      .guide-grid {
-        grid-template-columns: 1fr;
-      }
-      .stadiums-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
 
     @media (max-width: 768px) {
@@ -1641,10 +1500,35 @@
         flex-direction: column;
         text-align: center;
       }
-      
-      .stadiums-grid {
-        grid-template-columns: 1fr;
-      }
+    }
+
+    /* Highlighted Upcoming Countdown */
+    #upcoming-countdown-text {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .upcoming-countdown-timer {
+      background-color: var(--accent-color);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      margin-left: 5px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(226, 26, 60, 0.4);
+      animation: pulseCountdown 1.5s infinite;
+    }
+
+    @keyframes pulseCountdown {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(226, 26, 60, 0.4); }
+      50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(226, 26, 60, 0.6); }
     }
   </style>
 </head>
@@ -1667,9 +1551,8 @@
           <li><a href="#" class="active" onclick="closeMobileMenu()">Home</a></li>
           <li><a href="#today" onclick="closeMobileMenu()">Today's Matches</a></li>
           <li><a href="#featured" onclick="closeMobileMenu()">Featured</a></li>
-          <li><a href="#teams" onclick="closeMobileMenu()">Teams (48)</a></li>
+          <li><a href="teams.html">Teams (48)</a></li>
           <li><a href="#schedule" onclick="closeMobileMenu()">Schedule</a></li>
-          <li><a href="#guide" onclick="closeMobileMenu()">Guide</a></li>
         </ul>
         <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
           <i class="fa-solid fa-moon"></i>
@@ -1741,7 +1624,7 @@
 
       <!-- Quick Teams CTA -->
       <div style="margin-top: 25px;">
-        <button class="btn-action" style="background: rgba(0,168,107,0.12); border: 1px solid rgba(0,168,107,0.35); color: var(--primary-color);" onclick="document.getElementById('teams').scrollIntoView({behavior:'smooth'})">
+        <button class="btn-action" style="background: rgba(0,168,107,0.12); border: 1px solid rgba(0,168,107,0.35); color: var(--primary-color);" onclick="location.href='teams.html'">
           <i class="fa-solid fa-futbol"></i> View All Teams (48)
         </button>
       </div>
@@ -1883,103 +1766,16 @@
       <div id="schedule-results-wrapper">
         <!-- Will contain either the table or cards container. Managed by JS -->
       </div>
-    </div>
-  </section>
 
-    <!-- Teams Section -->
-    <section class="guide-section" id="teams">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <i class="fa-solid fa-futbol"></i>
-            <div>
-              <h2 class="section-title">48 Teams</h2>
-              <p class="section-desc" id="teams-count-desc">Loading teams...</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="teams-grid" id="teams-container">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Venue and Timezone Guide Section -->
-    <section class="guide-section" id="guide">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <i class="fa-solid fa-circle-info"></i>
-            <div>
-              <h2 class="section-title">Tournament Guide & Timezones</h2>
-              <p class="section-desc">Understand timezone calculations and explore the official host stadiums.</p>
-            </div>
-          </div>
-        </div>
-
-      <div class="guide-grid">
-        <!-- Timezone guide card -->
-        <div class="guide-card">
-          <h3 class="guide-card-title">
-            <i class="fa-solid fa-earth-asia"></i>
-            Bangladesh Standard Time (BST)
-          </h3>
-          <p>
-            The FIFA World Cup 2026 will be hosted across North America in three distinct local timezones:
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-circle-arrow-right"></i><strong>Eastern Time (EDT, UTC-4)</strong>: Bangladesh Standard Time (BST) is <strong>10 hours ahead</strong> of EDT. (e.g. 13:00 EDT = 23:00 BST).</li>
-            <li><i class="fa-solid fa-circle-arrow-right"></i><strong>Central Time (CDT/CST, UTC-5/UTC-6)</strong>: BST is <strong>11-12 hours ahead</strong>. (e.g. 15:00 CDT = 02:00 AM BST next day).</li>
-            <li><i class="fa-solid fa-circle-arrow-right"></i><strong>Pacific Time (PDT, UTC-7)</strong>: BST is <strong>13 hours ahead</strong>. (e.g. 19:00 PDT = 08:00 AM BST next day).</li>
-          </ul>
-          <p style="margin-top: 15px; font-style: italic; border-left: 3px solid var(--primary-color); padding-left: 10px;">
-            Note: The schedules on this website automatically convert all times to BST. Date changes (crossing midnight) are fully recalculated to ensure you never miss a match!
-          </p>
-        </div>
-
-        <!-- Venue guide card -->
-        <div class="guide-card">
-          <h3 class="guide-card-title">
-            <i class="fa-solid fa-mountain-city"></i>
-            Official Venues
-          </h3>
-          <p>
-            Matches will take place across 16 world-class stadiums in Canada, Mexico, and the United States:
-          </p>
-          <div class="stadiums-grid">
-            <div class="stadium-mini-card">
-              <span class="stadium-mini-name">MetLife Stadium</span>
-              <span class="stadium-mini-city">NY/NJ, USA (Final)</span>
-            </div>
-            <div class="stadium-mini-card">
-              <span class="stadium-mini-name">Estadio Azteca</span>
-              <span class="stadium-mini-city">Mexico City, MEX (Opener)</span>
-            </div>
-            <div class="stadium-mini-card">
-              <span class="stadium-mini-name">BMO Field</span>
-              <span class="stadium-mini-city">Toronto, CAN (CAN Opener)</span>
-            </div>
-            <div class="stadium-mini-card">
-              <span class="stadium-mini-name">SoFi Stadium</span>
-              <span class="stadium-mini-city">Los Angeles, USA (USA Opener)</span>
-            </div>
-            <div class="stadium-mini-card">
-              <span class="stadium-mini-name">AT&T Stadium</span>
-              <span class="stadium-mini-city">Dallas, USA (Semis)</span>
-            </div>
-            <div class="stadium-mini-card">
-              <span class="stadium-mini-name">Mercedes-Benz</span>
-              <span class="stadium-mini-city">Atlanta, USA (Semis)</span>
-            </div>
-          </div>
-          <p style="margin-top: 15px; font-size: 0.8rem;">
-            Other venues: Vancouver (BC Place), Monterrey (Estadio BBVA), Guadalajara (Estadio Akron), Seattle, San Francisco, Kansas City, Houston, Boston, Philadelphia, Miami.
-          </p>
-        </div>
+      <!-- Show More Container -->
+      <div id="show-more-container" style="text-align: center; margin-top: 30px; margin-bottom: 10px;">
+        <button id="btn-show-more" class="btn-action" style="padding: 12px 24px; font-size: 0.95rem; gap: 8px;">
+          <i class="fa-solid fa-chevron-down"></i> Show More Matches
+        </button>
       </div>
     </div>
   </section>
+
 
   <!-- Footer -->
   <footer>
@@ -2146,6 +1942,7 @@
       date: 'all',
       team: 'all'
     };
+    let scheduleLimit = 10;
 
     // Reference time in BST: June 16, 2026 17:00 (5:00 PM) BST
     // We mock the current time if the user is testing the app outside June 2026
@@ -2244,8 +2041,26 @@
       // Render Featured matches
       renderFeaturedMatches();
 
-      // Render Teams list
-      renderTeams();
+      // Check for 'team' query param to pre-filter
+      const urlParams = new URLSearchParams(window.location.search);
+      const teamParam = urlParams.get('team');
+      if (teamParam && teamParam !== 'all') {
+        currentFilters.team = teamParam;
+        const teamFilterSelect = document.getElementById('team-filter');
+        if (teamFilterSelect) {
+          teamFilterSelect.value = teamParam;
+        }
+        // Highlight corresponding quick tag if it exists
+        const tagButtons = document.querySelectorAll('.tag-btn');
+        tagButtons.forEach(btn => {
+          if (btn.getAttribute('data-team') === teamParam) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+        updateClearFiltersBtn();
+      }
 
       // Render Schedule matches (table by default, or card on resize)
       detectDefaultView();
@@ -2343,10 +2158,10 @@
       const uniqueTeams = new Set();
       
       matches.forEach(m => {
-        if (m.team1 && m.team1 !== 'TBD' && !m.team1.includes('Winner') && !m.team1.includes('Runner') && !m.team1.includes('Loser')) {
+        if (m.team1 && m.team1 !== 'TBD' && !m.team1.includes('Winner') && !m.team1.includes('Runner') && !m.team1.includes('Loser') && !m.team1.includes('Best')) {
           uniqueTeams.add(m.team1);
         }
-        if (m.team2 && m.team2 !== 'TBD' && !m.team2.includes('Winner') && !m.team2.includes('Runner') && !m.team2.includes('Loser')) {
+        if (m.team2 && m.team2 !== 'TBD' && !m.team2.includes('Winner') && !m.team2.includes('Runner') && !m.team2.includes('Loser') && !m.team2.includes('Best')) {
           uniqueTeams.add(m.team2);
         }
       });
@@ -2583,7 +2398,7 @@
         if (days > 0) parts.push(`${days}d`);
         parts.push(`${hours}h`, `${mins}m`, `${secs}s`);
 
-        textDesc.textContent = "Starts in: " + parts.join(' ');
+        textDesc.innerHTML = 'Starts in: <span class="upcoming-countdown-timer">' + parts.join(' ') + '</span>';
       }
 
       updateUpcomingTimer();
@@ -2810,44 +2625,6 @@
       });
     }
 
-    // Feature: Teams list rendering
-    function renderTeams() {
-      const container = document.getElementById('teams-container');
-      const countDesc = document.getElementById('teams-count-desc');
-      if (!container || !countDesc) return;
-
-      const teamMap = new Map();
-      matches.forEach(m => {
-        if (m.team1 && m.team1 !== 'TBD' && !m.team1.includes('Winner') && !m.team1.includes('Runner') && !m.team1.includes('Loser')) {
-          teamMap.set(m.team1, m.team1_code);
-        }
-        if (m.team2 && m.team2 !== 'TBD' && !m.team2.includes('Winner') && !m.team2.includes('Runner') && !m.team2.includes('Loser')) {
-          teamMap.set(m.team2, m.team2_code);
-        }
-      });
-
-      const sortedTeams = Array.from(teamMap.keys()).sort();
-      countDesc.textContent = `Explore matches and profiles for all ${sortedTeams.length} qualified nations.`;
-
-      container.innerHTML = '';
-      sortedTeams.forEach(teamName => {
-        const teamCode = teamMap.get(teamName);
-        const card = document.createElement('div');
-        card.className = 'team-mini-card';
-        card.onclick = () => quickFilterTeam(teamName);
-        
-        card.innerHTML = `
-          <div class="team-mini-flag">
-            ${getTeamFlagHTML(teamName, teamCode)}
-          </div>
-          <div>
-            <div class="team-mini-name">${teamName}</div>
-            <div class="team-mini-sub">Click to filter</div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
 
     // --------------------------------------------------
     // 5. SCHEDULE SEARCH & FILTER RENDERING
@@ -2885,8 +2662,17 @@
       const wrapper = document.getElementById('schedule-results-wrapper');
       const filtered = getFilteredMatches();
       
-      // Update count badge
-      document.getElementById('results-count').textContent = `Showing ${filtered.length} matches`;
+      // Update count badge and show-more container visibility
+      const displayedCount = Math.min(scheduleLimit, filtered.length);
+      const showMoreContainer = document.getElementById('show-more-container');
+      
+      if (filtered.length > scheduleLimit) {
+        document.getElementById('results-count').textContent = `Showing ${displayedCount} of ${filtered.length} matches`;
+        if (showMoreContainer) showMoreContainer.style.display = 'block';
+      } else {
+        document.getElementById('results-count').textContent = `Showing ${filtered.length} matches`;
+        if (showMoreContainer) showMoreContainer.style.display = 'none';
+      }
 
       if (filtered.length === 0) {
         wrapper.innerHTML = `
@@ -2901,10 +2687,11 @@
         return;
       }
 
+      const displayedMatches = filtered.slice(0, scheduleLimit);
       if (currentView === 'card') {
-        renderCardsView(filtered, wrapper);
+        renderCardsView(displayedMatches, wrapper);
       } else {
-        renderTableView(filtered, wrapper);
+        renderTableView(displayedMatches, wrapper);
       }
     }
 
@@ -3104,9 +2891,19 @@
       // Theme Toggle Click
       document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
+      // Show More Button Click
+      const btnShowMore = document.getElementById('btn-show-more');
+      if (btnShowMore) {
+        btnShowMore.addEventListener('click', () => {
+          scheduleLimit += 10;
+          renderSchedule();
+        });
+      }
+
       // Search Box Input
       document.getElementById('search-input').addEventListener('input', (e) => {
         currentFilters.search = e.target.value;
+        scheduleLimit = 10;
         renderSchedule();
         updateClearFiltersBtn();
       });
@@ -3114,6 +2911,7 @@
       // Stage select filter
       document.getElementById('stage-filter').addEventListener('change', (e) => {
         currentFilters.stage = e.target.value;
+        scheduleLimit = 10;
         renderSchedule();
         updateClearFiltersBtn();
       });
@@ -3121,6 +2919,7 @@
       // Date select filter
       document.getElementById('date-filter').addEventListener('change', (e) => {
         currentFilters.date = e.target.value;
+        scheduleLimit = 10;
         renderSchedule();
         updateClearFiltersBtn();
       });
@@ -3128,6 +2927,7 @@
       // Team select filter
       document.getElementById('team-filter').addEventListener('change', (e) => {
         currentFilters.team = e.target.value;
+        scheduleLimit = 10;
         renderSchedule();
         updateClearFiltersBtn();
       });
@@ -3172,6 +2972,7 @@
             currentFilters.team = team;
             document.getElementById('team-filter').value = team;
           }
+          scheduleLimit = 10;
           renderSchedule();
           updateClearFiltersBtn();
         });
@@ -3199,6 +3000,7 @@
       // Scroll to full schedule
       document.getElementById('schedule').scrollIntoView({ behavior: 'smooth' });
       
+      scheduleLimit = 10;
       renderSchedule();
       updateClearFiltersBtn();
     }
@@ -3221,6 +3023,7 @@
       const tagButtons = document.querySelectorAll('.tag-btn');
       tagButtons.forEach(btn => btn.classList.remove('active'));
 
+      scheduleLimit = 10;
       renderSchedule();
       updateClearFiltersBtn();
     }
