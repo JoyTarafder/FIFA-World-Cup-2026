@@ -1929,9 +1929,9 @@
             The FIFA World Cup 2026 will be hosted across North America in three distinct local timezones:
           </p>
           <ul>
-            <li><li><i class="fa-solid fa-circle-arrow-right"></i><strong>Eastern Time (EDT, UTC-4)</strong>: Bangladesh Standard Time (BST) is <strong>10 hours ahead</strong> of EDT. (e.g. 13:00 EDT = 23:00 BST).</li></li>
-            <li><li><i class="fa-solid fa-circle-arrow-right"></i><strong>Central Time (CDT/CST, UTC-5/UTC-6)</strong>: BST is <strong>11-12 hours ahead</strong>. (e.g. 15:00 CDT = 02:00 AM BST next day).</li></li>
-            <li><li><i class="fa-solid fa-circle-arrow-right"></i><strong>Pacific Time (PDT, UTC-7)</strong>: BST is <strong>13 hours ahead</strong>. (e.g. 19:00 PDT = 08:00 AM BST next day).</li></li>
+            <li><i class="fa-solid fa-circle-arrow-right"></i><strong>Eastern Time (EDT, UTC-4)</strong>: Bangladesh Standard Time (BST) is <strong>10 hours ahead</strong> of EDT. (e.g. 13:00 EDT = 23:00 BST).</li>
+            <li><i class="fa-solid fa-circle-arrow-right"></i><strong>Central Time (CDT/CST, UTC-5/UTC-6)</strong>: BST is <strong>11-12 hours ahead</strong>. (e.g. 15:00 CDT = 02:00 AM BST next day).</li>
+            <li><i class="fa-solid fa-circle-arrow-right"></i><strong>Pacific Time (PDT, UTC-7)</strong>: BST is <strong>13 hours ahead</strong>. (e.g. 19:00 PDT = 08:00 AM BST next day).</li>
           </ul>
           <p style="margin-top: 15px; font-style: italic; border-left: 3px solid var(--primary-color); padding-left: 10px;">
             Note: The schedules on this website automatically convert all times to BST. Date changes (crossing midnight) are fully recalculated to ensure you never miss a match!
@@ -2748,6 +2748,106 @@
         let statusPillHTML = `<span class="match-status-pill status-scheduled">Scheduled</span>`;
 
         if (m.status === 'Completed' || m.score1 !== null) {
+          scoreHTML = `
+            <div class="score-display">
+              <span>${m.score1}</span>
+              <span class="score-hyphen">-</span>
+              <span>${m.score2}</span>
+            </div>
+          `;
+          statusPillHTML = `<span class="match-status-pill status-completed">Completed</span>`;
+        } else if (m.status === 'Live') {
+          scoreHTML = `
+            <div class="score-display">
+              <span class="live-score-num">${m.score1 !== null ? m.score1 : 0}</span>
+              <span class="score-hyphen">-</span>
+              <span class="live-score-num">${m.score2 !== null ? m.score2 : 0}</span>
+            </div>
+          `;
+          statusPillHTML = `<span class="match-status-pill status-live"><span class="pulse-dot" style="width:6px;height:6px;background:var(--accent-color);border-radius:50%;display:inline-block;margin-right:4px;"></span>LIVE</span>`;
+        }
+
+        card.innerHTML = `
+          ${featuredTagHTML}
+          <div class="match-meta">
+            <span class="match-num">Match ${m.id}</span>
+            <span class="match-stage-badge ${getStageClass(m.stage)}">${m.group === 'Knockout' ? m.stage : m.group}</span>
+          </div>
+          <div class="match-fixture">
+            <div class="match-team" onclick="quickFilterTeam('${m.team1}')">
+              <div class="flag-wrap">
+                ${getTeamFlagHTML(m.team1, m.team1_code)}
+              </div>
+              <span class="team-name">${m.team1}</span>
+            </div>
+            <div class="match-score-center">
+              ${scoreHTML}
+              ${statusPillHTML}
+            </div>
+            <div class="match-team" onclick="quickFilterTeam('${m.team2}')">
+              <div class="flag-wrap">
+                ${getTeamFlagHTML(m.team2, m.team2_code)}
+              </div>
+              <span class="team-name">${m.team2}</span>
+            </div>
+          </div>
+          <div class="match-details">
+            <div class="detail-item">
+              <i class="fa-solid fa-calendar"></i>
+              <span>${formatBstDate(matchTime)}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa-solid fa-clock"></i>
+              <span>Kick-off: <span class="time-bst">${formatBstTime(matchTime)}</span> (BST)</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span title="${m.venue}">${m.venue}</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Feature: Teams list rendering
+    function renderTeams() {
+      const container = document.getElementById('teams-container');
+      const countDesc = document.getElementById('teams-count-desc');
+      if (!container || !countDesc) return;
+
+      const teamMap = new Map();
+      matches.forEach(m => {
+        if (m.team1 && m.team1 !== 'TBD' && !m.team1.includes('Winner') && !m.team1.includes('Runner') && !m.team1.includes('Loser')) {
+          teamMap.set(m.team1, m.team1_code);
+        }
+        if (m.team2 && m.team2 !== 'TBD' && !m.team2.includes('Winner') && !m.team2.includes('Runner') && !m.team2.includes('Loser')) {
+          teamMap.set(m.team2, m.team2_code);
+        }
+      });
+
+      const sortedTeams = Array.from(teamMap.keys()).sort();
+      countDesc.textContent = `Explore matches and profiles for all ${sortedTeams.length} qualified nations.`;
+
+      container.innerHTML = '';
+      sortedTeams.forEach(teamName => {
+        const teamCode = teamMap.get(teamName);
+        const card = document.createElement('div');
+        card.className = 'team-mini-card';
+        card.onclick = () => quickFilterTeam(teamName);
+        
+        card.innerHTML = `
+          <div class="team-mini-flag">
+            ${getTeamFlagHTML(teamName, teamCode)}
+          </div>
+          <div>
+            <div class="team-mini-name">${teamName}</div>
+            <div class="team-mini-sub">Click to filter</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
 
     // --------------------------------------------------
     // 5. SCHEDULE SEARCH & FILTER RENDERING
@@ -3307,7 +3407,11 @@
       if (isCurrentlyFetching) return;
       isCurrentlyFetching = true;
 
-      updateStatusBar('fetching', isManual ? 'Checking for updates...' : 'Fetching live scores...');
+      const bar = document.getElementById('live-update-bar');
+      const isVisible = bar && bar.classList.contains('visible');
+      if (isManual || isVisible) {
+        updateStatusBar('fetching', isManual ? 'Checking for updates...' : 'Fetching live scores...');
+      }
 
       try {
         const dates = getQueryDates();
@@ -3368,12 +3472,16 @@
             showScoreToast(null, null, null, null, null, false, `${updatedCount} score${updatedCount>1?'s':''} updated at ${timeStr}`);
           }
         } else {
-          const statusMsg = liveCount > 0 ? `${liveCount} match${liveCount>1?'es':''} in progress` : 'All scores up-to-date';
-          updateStatusBar('active', statusMsg, timeStr);
+          // Silent in background if no updates or live matches
+          if (bar) {
+            bar.classList.remove('visible');
+          }
         }
 
       } catch (err) {
-        updateStatusBar('error', 'Update failed – retrying in 60s');
+        if (isManual || isVisible) {
+          updateStatusBar('error', 'Update failed – retrying in 60s');
+        }
         console.warn('[LiveUpdate] Error:', err);
       } finally {
         isCurrentlyFetching = false;
@@ -3498,7 +3606,7 @@
   </script>
 
   <!-- Live Update Status Bar (fixed at bottom) -->
-  <div class="live-update-bar" id="live-update-bar" style="display: none;">
+  <div class="live-update-bar" id="live-update-bar">
     <div class="live-update-left">
       <div class="live-dot-indicator" id="live-dot"></div>
       <div>
