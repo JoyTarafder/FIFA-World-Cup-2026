@@ -515,6 +515,36 @@
       gap: 24px;
     }
 
+    /* Highlight Match Card Styles */
+    .highlight-match-card {
+      border-top: 3px solid var(--secondary-color) !important;
+      background: linear-gradient(180deg, rgba(255, 210, 63, 0.04) 0%, var(--bg-secondary) 40%) !important;
+    }
+
+    .highlight-score {
+      font-size: 1.6rem !important;
+    }
+
+    .winner-score {
+      color: var(--secondary-color) !important;
+      text-shadow: 0 0 12px rgba(255, 210, 63, 0.5);
+      font-size: 1.8rem;
+    }
+
+    .highlight-winner {
+      color: var(--secondary-color) !important;
+      font-weight: 800 !important;
+    }
+
+    .match-status-pill.status-ft {
+      background: rgba(255, 210, 63, 0.15);
+      border: 1px solid rgba(255, 210, 63, 0.4);
+      color: var(--secondary-color);
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+
     /* Featured Matches Grid */
     .featured-grid {
       display: grid;
@@ -730,6 +760,207 @@
     @keyframes liveCardPulse {
       0%, 100% { box-shadow: 0 0 0 3px rgba(255, 42, 95, 0.1), var(--card-shadow); }
       50% { box-shadow: 0 0 0 6px rgba(255, 42, 95, 0.05), var(--card-shadow); }
+    }
+
+    /* ====================================================
+       LIVE NOW SECTION STYLES
+    ==================================================== */
+    .live-now-section {
+      padding: 60px 0 20px 0;
+      display: none; /* hidden by default, shown via JS when a match is live */
+    }
+
+    .live-now-section.is-active {
+      display: block;
+    }
+
+    .live-section-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .live-now-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #ff2a5f, #ff0040);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 24px rgba(255, 42, 95, 0.5);
+      animation: liveNowPulse 1.8s ease-in-out infinite;
+    }
+
+    .live-now-badge .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      animation: liveDotBlink 1s step-start infinite;
+    }
+
+    @keyframes liveDotBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes liveNowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.7), 0 0 24px rgba(255, 42, 95, 0.5); }
+      70% { box-shadow: 0 0 0 14px rgba(255, 42, 95, 0), 0 0 24px rgba(255, 42, 95, 0.5); }
+    }
+
+    .live-now-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .live-now-elapsed {
+      color: var(--accent-color);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* Live Match Card */
+    .live-match-card {
+      background: linear-gradient(135deg, rgba(255, 42, 95, 0.05) 0%, var(--bg-secondary) 60%);
+      border: 2px solid rgba(255, 42, 95, 0.4);
+      border-radius: 24px;
+      padding: 28px 32px;
+      box-shadow: 0 0 40px rgba(255, 42, 95, 0.12), var(--card-shadow);
+      animation: liveCardGlow 2.5s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .live-match-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 42, 95, 0.8), transparent);
+      animation: scanLine 2s linear infinite;
+    }
+
+    @keyframes scanLine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes liveCardGlow {
+      0%, 100% { box-shadow: 0 0 40px rgba(255, 42, 95, 0.12), var(--card-shadow); }
+      50% { box-shadow: 0 0 60px rgba(255, 42, 95, 0.22), var(--card-shadow); }
+    }
+
+    .live-match-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .live-team-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .live-team-flag {
+      width: 72px;
+      height: 52px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .live-team-flag img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .live-team-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .live-score-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      min-width: 120px;
+    }
+
+    .live-score-display {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent-color);
+      text-shadow: 0 0 20px rgba(255, 42, 95, 0.5);
+      animation: liveScoreGlow 1.5s ease-in-out infinite;
+    }
+
+    .live-score-sep {
+      color: var(--text-secondary);
+      font-size: 2rem;
+    }
+
+    .live-elapsed-badge {
+      background: rgba(255, 42, 95, 0.12);
+      border: 1px solid rgba(255, 42, 95, 0.25);
+      color: var(--accent-color);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .live-match-meta {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    .live-match-meta .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-match-meta i {
+      color: var(--accent-color);
     }
 
     /* Notification toast for score changes */
@@ -1714,7 +1945,7 @@
       <nav id="mobile-nav">
         <ul class="nav-links">
           <li><a href="#" class="active" onclick="closeMobileMenu()">Home</a></li>
-          <li><a href="#today" onclick="closeMobileMenu()">Today's Matches</a></li>
+          <li><a href="#highlights" onclick="closeMobileMenu()">Highlights</a></li>
           <li><a href="#featured" onclick="closeMobileMenu()">Featured</a></li>
           <li><a href="teams.html">Teams (48)</a></li>
           <li><a href="#schedule" onclick="closeMobileMenu()">Schedule</a></li>
@@ -1796,6 +2027,23 @@
     </div>
   </section>
 
+  <!-- LIVE NOW Section - auto-shown when a match is in progress -->
+  <section class="live-now-section" id="live-now-section">
+    <div class="container">
+      <div class="live-section-header">
+        <div class="live-now-badge">
+          <span class="live-dot"></span>
+          LIVE NOW
+        </div>
+        <div class="live-now-title">Match in Progress</div>
+        <div class="live-now-elapsed" id="live-elapsed-text"></div>
+      </div>
+      <div id="live-matches-container">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </div>
+  </section>
+
   <!-- Upcoming Matches Section -->
   <section class="upcoming-section" id="upcoming" style="padding-top: 50px;">
     <div class="container">
@@ -1814,19 +2062,19 @@
     </div>
   </section>
 
-  <!-- Today's Matches Section -->
-  <section class="today-section" id="today">
+  <!-- Highlight Matches Section -->
+  <section class="today-section" id="highlights">
     <div class="container">
       <div class="section-header">
         <div class="section-title-wrap">
-          <i class="fa-solid fa-calendar-day"></i>
+          <i class="fa-solid fa-fire-flame-curved" style="color: var(--secondary-color); filter: drop-shadow(0 0 8px rgba(255,210,63,0.5));"></i>
           <div>
-            <h2 class="section-title">Today's Matches</h2>
-            <p class="section-desc" id="today-date-banner">Loading local date...</p>
+            <h2 class="section-title">Highlight Matches</h2>
+            <p class="section-desc" id="highlight-date-banner">Most recent matchday results</p>
           </div>
         </div>
       </div>
-      <div class="today-grid" id="today-matches-container">
+      <div class="today-grid" id="highlight-matches-container">
         <!-- Will be populated by JS -->
       </div>
     </div>
@@ -2086,14 +2334,23 @@
       // Initialize Countdown
       initCountdown();
       
-      // Render Upcoming Match
-      renderUpcomingMatch();
+      // ── INITIAL RENDER ──────────────────────────────
+      renderLiveMatches();       // Live match (if any ongoing)
+      renderUpcomingMatch();     // Next scheduled match
+      renderHighlightMatches();  // Last 3 past matches
+      renderFeaturedMatches();   // Key tournament matches
 
-      // Render Today's matches
-      renderTodayMatches();
-      
-      // Render Featured matches
-      renderFeaturedMatches();
+      // ── MASTER AUTO-REFRESH (every 30 seconds) ──────
+      // Keeps all sections in sync without a page reload:
+      //   • Match starts  → appears in Live section
+      //   • Match ends    → moves to Highlight section
+      //   • Upcoming      → ticks down and swaps to next match
+      setInterval(() => {
+        renderLiveMatches();
+        renderHighlightMatches();
+        renderUpcomingMatch();
+      }, 30000);
+
 
       // Check for 'team' query param to pre-filter
       const urlParams = new URLSearchParams(window.location.search);
@@ -2312,6 +2569,125 @@
     }
 
     // --------------------------------------------------
+    // LIVE MATCH SECTION
+    // --------------------------------------------------
+    function renderLiveMatches() {
+      const section = document.getElementById('live-now-section');
+      const container = document.getElementById('live-matches-container');
+      const elapsedText = document.getElementById('live-elapsed-text');
+      const navLiveIndicator = document.getElementById('nav-live-indicator');
+      if (!section || !container) return;
+
+      const now = getAccurateNow();
+      const MATCH_DURATION_MS = 115 * 60 * 1000; // ~115 min (90min + stoppages)
+
+      const liveMatches = matches.filter(m => {
+        const kickoff = new Date(m.utc_time);
+        return now >= kickoff && now <= new Date(kickoff.getTime() + MATCH_DURATION_MS);
+      });
+
+      if (liveMatches.length === 0) {
+        section.classList.remove('is-active');
+        container.innerHTML = '';
+        if (navLiveIndicator) navLiveIndicator.style.display = 'none';
+        if (window._liveElapsedTimer) {
+          clearInterval(window._liveElapsedTimer);
+          window._liveElapsedTimer = null;
+        }
+        return;
+      }
+
+      section.classList.add('is-active');
+      container.innerHTML = '';
+      if (navLiveIndicator) navLiveIndicator.style.display = 'inline-block';
+
+      liveMatches.forEach(m => {
+        const kickoff = new Date(m.utc_time);
+        const elapsedMs = now.getTime() - kickoff.getTime();
+        const elapsedMin = Math.floor(elapsedMs / 60000);
+
+        // Update the elapsed text in the header (use last match if multiple)
+        if (elapsedText) elapsedText.textContent = `${elapsedMin}'`;
+
+        // Flag HTML helpers
+        const flag1 = getTeamFlagHTML(m.team1, m.team1_code);
+        const flag2 = getTeamFlagHTML(m.team2, m.team2_code);
+
+        const scoreDisplay = (m.score1 !== null && m.score2 !== null)
+          ? `<span class="live-score-num">${m.score1}</span>
+             <span class="live-score-sep">-</span>
+             <span class="live-score-num">${m.score2}</span>`
+          : `<span class="live-score-num">0</span>
+             <span class="live-score-sep">-</span>
+             <span class="live-score-num">0</span>`;
+
+        const card = document.createElement('div');
+        card.className = 'live-match-card';
+        card.innerHTML = `
+          <div class="live-match-inner">
+            <div class="live-team-block" onclick="quickFilterTeam('${m.team1}')" style="cursor:pointer">
+              <div class="live-team-flag">${flag1}</div>
+              <div class="live-team-name">${m.team1}</div>
+            </div>
+
+            <div class="live-score-block">
+              <div class="live-score-display">${scoreDisplay}</div>
+              <div class="live-elapsed-badge" id="live-badge-${m.id}">${elapsedMin}'</div>
+            </div>
+
+            <div class="live-team-block" onclick="quickFilterTeam('${m.team2}')" style="cursor:pointer">
+              <div class="live-team-flag">${flag2}</div>
+              <div class="live-team-name">${m.team2}</div>
+            </div>
+          </div>
+
+          <div class="live-match-meta">
+            <div class="detail-item">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>${m.group === 'Knockout' ? m.stage : m.group + ' – ' + m.stage}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa-solid fa-clock"></i>
+              <span>Kick-off: ${formatBstTime(kickoff)} BST</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>${m.venue}</span>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      // Start a per-30s ticker to update elapsed minute badges without full re-render
+      if (window._liveElapsedTimer) clearInterval(window._liveElapsedTimer);
+      window._liveElapsedTimer = setInterval(() => {
+        const nowTick = getAccurateNow();
+        liveMatches.forEach(m => {
+          const kickoff = new Date(m.utc_time);
+          const mins = Math.floor((nowTick.getTime() - kickoff.getTime()) / 60000);
+          const badge = document.getElementById(`live-badge-${m.id}`);
+          if (badge) badge.textContent = `${mins}'`;
+        });
+        if (elapsedText && liveMatches.length > 0) {
+          const lastKickoff = new Date(liveMatches[liveMatches.length - 1].utc_time);
+          const mins = Math.floor((nowTick.getTime() - lastKickoff.getTime()) / 60000);
+          elapsedText.textContent = `${mins}'`;
+        }
+        // Stop ticker and hide section if all matches finished
+        const stillLive = liveMatches.some(m => {
+          const kickoff = new Date(m.utc_time);
+          return nowTick <= new Date(kickoff.getTime() + 115 * 60 * 1000);
+        });
+        if (!stillLive) {
+          clearInterval(window._liveElapsedTimer);
+          renderLiveMatches(); // will hide section
+        }
+      }, 30000);
+    }
+
+    // --------------------------------------------------
     // UPCOMING MATCH SECTION
     // --------------------------------------------------
     let upcomingMatchInterval = null;
@@ -2433,79 +2809,71 @@
     }
 
     // --------------------------------------------------
-    // TODAY'S MATCHES SECTION
+    // HIGHLIGHT MATCHES SECTION (most recent past matchday)
     // --------------------------------------------------
-    function renderTodayMatches() {
-      const container = document.getElementById('today-matches-container');
-      const dateBanner = document.getElementById('today-date-banner');
-      
-      dateBanner.textContent = formatBstDate(activeSystemDate);
-      const todayBstStr = getBstCalendarDate(activeSystemDate);
-      
-      const todayMatches = matches.filter(m => {
-        const matchTime = new Date(m.utc_time);
-        return getBstCalendarDate(matchTime) === todayBstStr;
-      });
+    function renderHighlightMatches() {
+      const container = document.getElementById('highlight-matches-container');
+      const dateBanner = document.getElementById('highlight-date-banner');
+      if (!container || !dateBanner) return;
+
+      const now = getAccurateNow();
+
+      // Find all past matches (kick-off already happened)
+      const pastMatches = matches
+        .filter(m => new Date(m.utc_time) < now)
+        .sort((a, b) => new Date(b.utc_time) - new Date(a.utc_time));
 
       container.innerHTML = '';
-      
-      if (todayMatches.length === 0) {
-        const futureMatches = matches.filter(m => new Date(m.utc_time) > activeSystemDate);
-        let nextMatchBtnHTML = '';
-        
-        if (futureMatches.length > 0) {
-          const nextMatch = futureMatches[0];
-          const nextMatchBstDate = getBstCalendarDate(new Date(nextMatch.utc_time));
-          
-          nextMatchBtnHTML = `
-            <button class="btn-action" onclick="filterByBstDate('${nextMatchBstDate}')" style="margin-top: 10px;">
-              <i class="fa-solid fa-arrow-right"></i> View Next Matches (${bstDayMonthFormatter.format(new Date(nextMatch.utc_time))})
-            </button>
-          `;
-        }
 
+      if (pastMatches.length === 0) {
+        dateBanner.textContent = 'No matches played yet';
         container.innerHTML = `
           <div class="no-matches">
             <i class="fa-regular fa-futbol"></i>
-            <p>No matches scheduled for today in Bangladesh Time.</p>
-            ${nextMatchBtnHTML}
+            <p>No past matches found. Check back after the tournament begins!</p>
           </div>
         `;
         return;
       }
 
-      todayMatches.forEach(m => {
+      // Take the 3 most recently played matches — newest first (e.g. 17 → 16 → 15)
+      const highlightMatches = pastMatches.slice(0, 3);
+
+      // Banner: show the date range if matches span multiple days
+      const firstDate = getBstCalendarDate(new Date(highlightMatches[0].utc_time));
+      const lastDate  = getBstCalendarDate(new Date(highlightMatches[highlightMatches.length - 1].utc_time));
+      const fmt = d => new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Dhaka', month: 'short', day: 'numeric', year: 'numeric'
+      }).format(new Date(d + 'T00:00:00+06:00'));
+      dateBanner.innerHTML = firstDate === lastDate
+        ? `Last 3 results &nbsp;·&nbsp; <strong>${fmt(firstDate)}</strong>`
+        : `Last 3 results &nbsp;·&nbsp; <strong>${fmt(firstDate)} – ${fmt(lastDate)}</strong>`;
+
+
+      highlightMatches.forEach(m => {
         const matchTime = new Date(m.utc_time);
         const matchCard = document.createElement('div');
-        matchCard.className = 'match-card';
-        
-        const isLive = activeSystemDate >= matchTime && activeSystemDate <= new Date(matchTime.getTime() + 2 * 60 * 60 * 1000);
-        let scoreHTML = `<div class="score-tbd">VS</div>`;
-        let statusPillHTML = `<span class="match-status-pill status-scheduled">Scheduled</span>`;
+        matchCard.className = 'match-card highlight-match-card';
 
-        if (m.status === 'Completed' || m.score1 !== null) {
+        // Determine score display
+        let scoreHTML;
+        let statusPillHTML;
+        if (m.score1 !== null && m.score2 !== null) {
+          // Determine winner for bold highlight
+          const w1 = m.score1 > m.score2;
+          const w2 = m.score2 > m.score1;
           scoreHTML = `
-            <div class="score-display">
-              <span>${m.score1}</span>
+            <div class="score-display highlight-score">
+              <span class="${w1 ? 'winner-score' : ''}">${m.score1}</span>
               <span class="score-hyphen">-</span>
-              <span>${m.score2}</span>
+              <span class="${w2 ? 'winner-score' : ''}">${m.score2}</span>
             </div>
           `;
-          statusPillHTML = `<span class="match-status-pill status-completed">Completed</span>`;
-        } else if (isLive) {
-          scoreHTML = `
-            <div class="score-display">
-              <span class="live-score-num">0</span>
-              <span class="score-hyphen">-</span>
-              <span class="live-score-num">0</span>
-            </div>
-          `;
-          statusPillHTML = `
-            <span class="match-status-pill status-live">
-              <span class="pulse-dot" style="width: 6px; height: 6px; background-color: var(--accent-color); border-radius: 50%; display: inline-block; margin-right: 4px;"></span>
-              LIVE
-            </span>
-          `;
+          statusPillHTML = `<span class="match-status-pill status-ft">FT</span>`;
+        } else {
+          // Match happened but no score recorded yet
+          scoreHTML = `<div class="score-display"><span>-</span><span class="score-hyphen">-</span><span>-</span></div>`;
+          statusPillHTML = `<span class="match-status-pill status-completed">Played</span>`;
         }
 
         matchCard.innerHTML = `
@@ -2515,26 +2883,22 @@
           </div>
           <div class="match-fixture">
             <div class="match-team" onclick="quickFilterTeam('${m.team1}')">
-              <div class="flag-wrap">
-                ${getTeamFlagHTML(m.team1, m.team1_code)}
-              </div>
-              <span class="team-name">${m.team1}</span>
+              <div class="flag-wrap">${getTeamFlagHTML(m.team1, m.team1_code)}</div>
+              <span class="team-name${m.score1 > m.score2 ? ' highlight-winner' : ''}">${m.team1}</span>
             </div>
             <div class="match-score-center">
               ${scoreHTML}
               ${statusPillHTML}
             </div>
             <div class="match-team" onclick="quickFilterTeam('${m.team2}')">
-              <div class="flag-wrap">
-                ${getTeamFlagHTML(m.team2, m.team2_code)}
-              </div>
-              <span class="team-name">${m.team2}</span>
+              <div class="flag-wrap">${getTeamFlagHTML(m.team2, m.team2_code)}</div>
+              <span class="team-name${m.score2 > m.score1 ? ' highlight-winner' : ''}">${m.team2}</span>
             </div>
           </div>
           <div class="match-details">
             <div class="detail-item">
               <i class="fa-solid fa-clock"></i>
-              <span>Kick-off: <span class="time-bst">${formatBstTime(matchTime)}</span> (BST)</span>
+              <span>Kick-off: <span class="time-bst">${formatBstTime(matchTime)}</span> BST</span>
             </div>
             <div class="detail-item">
               <i class="fa-solid fa-location-dot"></i>
@@ -3235,7 +3599,7 @@
 
         if (updatedCount > 0 || liveCount > 0) {
           renderUpcomingMatch();
-          renderTodayMatches();
+          renderHighlightMatches();
           renderFeaturedMatches();
           renderSchedule();
           
