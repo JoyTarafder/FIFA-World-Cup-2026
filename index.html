@@ -1766,6 +1766,60 @@
       text-align: center;
     }
 
+    /* Pagination Styles */
+    .pagination-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      min-width: 42px;
+      height: 42px;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      color: var(--text-primary);
+      border-color: var(--primary-color);
+      background-color: rgba(0, 245, 155, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .page-btn.active {
+      color: var(--bg-primary);
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 15px rgba(0, 245, 155, 0.3);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .page-ellipsis {
+      color: var(--text-secondary);
+      font-weight: 600;
+      padding: 0 4px;
+    }
+
     /* Keyframe Animations */
     @keyframes slideUp {
       from {
@@ -2370,11 +2424,9 @@
         <!-- Will contain either the table or cards container. Managed by JS -->
       </div>
 
-      <!-- Show More Container -->
-      <div id="show-more-container" style="text-align: center; margin-top: 30px; margin-bottom: 10px;">
-        <button id="btn-show-more" class="btn-action" style="padding: 12px 24px; font-size: 0.95rem; gap: 8px;">
-          <i class="fa-solid fa-chevron-down"></i> Show More Matches
-        </button>
+      <!-- Pagination Container -->
+      <div id="pagination-container" class="pagination-wrap">
+        <!-- Will be populated dynamically by JS -->
       </div>
     </div>
   </section>
@@ -2435,7 +2487,8 @@
       date: 'all',
       team: 'all'
     };
-    let scheduleLimit = 10;
+    let currentPage = 1;
+    const matchesPerPage = 10;
 
     // Reference time in BST: June 16, 2026 17:00 (5:00 PM) BST
     // We mock the current time if the user is testing the app outside June 2026
@@ -3227,17 +3280,20 @@
     function renderSchedule() {
       const wrapper = document.getElementById('schedule-results-wrapper');
       const filtered = getFilteredMatches();
+      const paginationContainer = document.getElementById('pagination-container');
       
-      const displayedCount = Math.min(scheduleLimit, filtered.length);
-      const showMoreContainer = document.getElementById('show-more-container');
+      const totalPages = Math.ceil(filtered.length / matchesPerPage);
       
-      if (filtered.length > scheduleLimit) {
-        document.getElementById('results-count').textContent = `Showing ${displayedCount} of ${filtered.length} matches`;
-        if (showMoreContainer) showMoreContainer.style.display = 'block';
-      } else {
-        document.getElementById('results-count').textContent = `Showing ${filtered.length} matches`;
-        if (showMoreContainer) showMoreContainer.style.display = 'none';
-      }
+      // Clamp currentPage
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * matchesPerPage;
+      const endIndex = startIndex + matchesPerPage;
+      
+      const startNum = filtered.length > 0 ? startIndex + 1 : 0;
+      const endNum = Math.min(endIndex, filtered.length);
+      document.getElementById('results-count').textContent = `Showing ${startNum}-${endNum} of ${filtered.length} matches`;
 
       if (filtered.length === 0) {
         wrapper.innerHTML = `
@@ -3249,15 +3305,78 @@
             </button>
           </div>
         `;
+        if (paginationContainer) paginationContainer.innerHTML = '';
         return;
       }
 
-      const displayedMatches = filtered.slice(0, scheduleLimit);
+      const displayedMatches = filtered.slice(startIndex, endIndex);
       if (currentView === 'card') {
         renderCardsView(displayedMatches, wrapper);
       } else {
         renderTableView(displayedMatches, wrapper);
       }
+
+      // Render Pagination Buttons
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      const paginationContainer = document.getElementById('pagination-container');
+      if (!paginationContainer) return;
+
+      if (totalPages <= 1) {
+        paginationContainer.innerHTML = '';
+        return;
+      }
+
+      let paginationHTML = '';
+
+      // Prev Button
+      paginationHTML += `
+        <button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})" aria-label="Previous Page">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      `;
+
+      // Smart pagination numbers
+      const range = 1; // Number of pages to show before and after current page
+      let showPages = new Set();
+      showPages.add(1);
+      showPages.add(totalPages);
+
+      for (let i = Math.max(1, currentPage - range); i <= Math.min(totalPages, currentPage + range); i++) {
+        showPages.add(i);
+      }
+
+      const sortedPages = Array.from(showPages).sort((a, b) => a - b);
+      let lastOutput = 0;
+      
+      sortedPages.forEach(p => {
+        if (lastOutput > 0 && p - lastOutput > 1) {
+          paginationHTML += `<span class="page-ellipsis">...</span>`;
+        }
+        paginationHTML += `
+          <button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="changePage(${p})">
+            ${p}
+          </button>
+        `;
+        lastOutput = p;
+      });
+
+      // Next Button
+      paginationHTML += `
+        <button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})" aria-label="Next Page">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      `;
+
+      paginationContainer.innerHTML = paginationHTML;
+    }
+
+    function changePage(page) {
+      currentPage = page;
+      renderSchedule();
+      document.getElementById('schedule').scrollIntoView({ behavior: 'smooth' });
     }
 
     function renderCardsView(matchesList, targetContainer) {
@@ -3452,38 +3571,30 @@
     function setupEventListeners() {
       document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
-      const btnShowMore = document.getElementById('btn-show-more');
-      if (btnShowMore) {
-        btnShowMore.addEventListener('click', () => {
-          scheduleLimit += 10;
-          renderSchedule();
-        });
-      }
-
       document.getElementById('search-input').addEventListener('input', (e) => {
         currentFilters.search = e.target.value;
-        scheduleLimit = 10;
+        currentPage = 1;
         renderSchedule();
         updateClearFiltersBtn();
       });
 
       document.getElementById('stage-filter').addEventListener('change', (e) => {
         currentFilters.stage = e.target.value;
-        scheduleLimit = 10;
+        currentPage = 1;
         renderSchedule();
         updateClearFiltersBtn();
       });
 
       document.getElementById('date-filter').addEventListener('change', (e) => {
         currentFilters.date = e.target.value;
-        scheduleLimit = 10;
+        currentPage = 1;
         renderSchedule();
         updateClearFiltersBtn();
       });
 
       document.getElementById('team-filter').addEventListener('change', (e) => {
         currentFilters.team = e.target.value;
-        scheduleLimit = 10;
+        currentPage = 1;
         renderSchedule();
         updateClearFiltersBtn();
       });
@@ -3524,7 +3635,7 @@
             currentFilters.team = team;
             document.getElementById('team-filter').value = team;
           }
-          scheduleLimit = 10;
+          currentPage = 1;
           renderSchedule();
           updateClearFiltersBtn();
         });
@@ -3547,7 +3658,7 @@
       });
 
       document.getElementById('schedule').scrollIntoView({ behavior: 'smooth' });
-      scheduleLimit = 10;
+      currentPage = 1;
       renderSchedule();
       updateClearFiltersBtn();
     }
@@ -3568,7 +3679,7 @@
       const tagButtons = document.querySelectorAll('.tag-btn');
       tagButtons.forEach(btn => btn.classList.remove('active'));
 
-      scheduleLimit = 10;
+      currentPage = 1;
       renderSchedule();
       updateClearFiltersBtn();
     }
