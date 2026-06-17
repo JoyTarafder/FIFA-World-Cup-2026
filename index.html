@@ -2716,6 +2716,7 @@
       const MATCH_DURATION_MS = 115 * 60 * 1000; // ~115 min (90min + stoppages)
 
       const liveMatches = matches.filter(m => {
+        if (m.status === 'Completed') return false; // never show completed matches as live
         const kickoff = new Date(m.utc_time);
         return now >= kickoff && now <= new Date(kickoff.getTime() + MATCH_DURATION_MS);
       });
@@ -2811,6 +2812,7 @@
         }
         // Stop ticker and hide section if all matches finished
         const stillLive = liveMatches.some(m => {
+          if (m.status === 'Completed') return false;
           const kickoff = new Date(m.utc_time);
           return nowTick <= new Date(kickoff.getTime() + 115 * 60 * 1000);
         });
@@ -3738,13 +3740,9 @@
           renderSchedule();
         }
 
-        if (liveCount > 0) {
-          const msg = `${liveCount} match${liveCount>1?'es':''} LIVE`;
-          updateStatusBar('live', msg, timeStr);
-        } else {
-          if (bar) {
-            bar.classList.remove('visible');
-          }
+        // Always hide the status bar — live updates run silently in background
+        if (bar) {
+          bar.classList.remove('visible');
         }
 
       } catch (err) {
@@ -3764,8 +3762,7 @@
       const textEl = document.getElementById('live-update-text');
       const timeEl = document.getElementById('live-update-lasttime');
       if (!bar) return;
-
-      bar.classList.add('visible');
+      // bar.classList.add('visible'); // Always keep status bar hidden in the frontend
       dot.className = 'live-dot-indicator';
 
       if (state === 'fetching') {
