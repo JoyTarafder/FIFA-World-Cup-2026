@@ -89,6 +89,11 @@
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -98,7 +103,6 @@
       background-color: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.6;
-      overflow-x: hidden;
       position: relative;
     }
 
@@ -339,6 +343,20 @@
       max-width: 650px;
       margin: 0 auto 35px auto;
       line-height: 1.6;
+    }
+
+    .hero-subtitle-bst {
+      color: var(--secondary-color);
+      font-weight: 700;
+      margin-top: -15px;
+      margin-bottom: 24px;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .hero-cta-wrap {
+      margin-top: 35px;
     }
 
     /* Countdown Timer Card */
@@ -1848,9 +1866,21 @@
       }
       .theme-toggle-btn::after { content: ' Toggle Theme'; }
 
+      /* ---- BACKGROUND MESH CLIPPING ---- */
+      body::before {
+        right: 0;
+        width: 300px;
+        height: 300px;
+      }
+      body::after {
+        left: 0;
+        width: 400px;
+        height: 400px;
+      }
+
       /* ---- HERO SECTION ---- */
       .hero-section {
-        padding: 100px 16px 50px 16px;
+        padding: 80px 16px 40px 16px;
         text-align: center;
       }
       .hero-title {
@@ -1860,7 +1890,15 @@
       }
       .hero-subtitle {
         font-size: 0.95rem;
-        margin-bottom: 24px;
+        margin-bottom: 16px;
+      }
+      .hero-subtitle-bst {
+        font-size: 1.15rem;
+        margin-top: -10px;
+        margin-bottom: 16px;
+      }
+      .hero-cta-wrap {
+        margin-top: 20px;
       }
       .badge-live {
         font-size: 0.75rem;
@@ -1870,6 +1908,9 @@
       }
 
       /* ---- COUNTDOWN ---- */
+      .countdown-card {
+        margin-bottom: 24px;
+      }
       .countdown-container {
         padding: 14px 16px;
         gap: 8px;
@@ -1898,7 +1939,7 @@
       .today-section,
       .featured-section,
       .schedule-section {
-        padding: 48px 0;
+        padding: 32px 0;
       }
 
       .section-header {
@@ -1913,7 +1954,8 @@
 
       /* ---- MATCH CARDS GRIDS ---- */
       .today-grid,
-      .featured-grid {
+      .featured-grid,
+      .matches-cards-container {
         grid-template-columns: 1fr;
         gap: 16px;
       }
@@ -1930,53 +1972,63 @@
         font-size: 2rem;
       }
 
-      /* ---- LIVE NOW SECTION ---- */
+      /* ---- LIVE NOW SECTION (Compact Horizontal) ---- */
       .live-section-header {
         flex-wrap: wrap;
         gap: 10px;
         margin-bottom: 20px;
       }
       .live-now-title { font-size: 1.4rem; }
-      .live-match-card { padding: 20px 16px; }
+      .live-match-card { padding: 16px 12px; }
       .live-match-inner {
-        flex-direction: column;
-        gap: 16px;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: space-between;
         align-items: center;
-        text-align: center;
       }
-      .live-team-block { min-width: auto; width: 100%; }
-      .live-team-flag { width: 60px; height: 44px; }
-      .live-team-name { font-size: 1rem; }
-      .live-score-center { font-size: 2rem; }
+      .live-team-block { min-width: 80px; flex: 1; }
+      .live-team-flag { width: 46px; height: 32px; border-radius: 6px; }
+      .live-team-name { font-size: 0.85rem; }
+      .live-score-block { min-width: 80px; }
+      .live-score-display { font-size: 1.8rem; gap: 6px; }
+      .live-elapsed-badge { font-size: 0.72rem; padding: 2px 8px; }
+      .live-match-meta { margin-top: 12px; padding-top: 12px; gap: 10px; font-size: 0.75rem; }
 
       /* ---- GENERIC MATCH CARDS ---- */
       .match-card {
         padding: 16px;
         border-radius: 18px;
       }
-      .match-teams {
-        flex-direction: row;
+      .match-fixture {
         gap: 8px;
       }
-      .team-name { font-size: 0.85rem; }
-      .team-flag { width: 22px; height: 16px; }
-      .match-score { font-size: 1.4rem; }
+      .flag-wrap {
+        width: 44px;
+        height: 30px;
+        border-radius: 6px;
+        margin-bottom: 6px;
+      }
+      .team-name { font-size: 0.82rem; }
+      .score-display { font-size: 1.4rem; }
+      .score-tbd { font-size: 0.75rem; padding: 4px 10px; }
 
       /* ---- FILTERS / SCHEDULE ---- */
       .filter-wrapper { padding: 14px 12px; gap: 12px; }
       .filter-row-top { flex-direction: column; gap: 10px; }
+      .filter-select-wrap { flex-direction: column; width: 100%; gap: 10px; }
+      .filter-select { width: 100%; min-width: 0; padding: 12px 14px; font-size: 0.9rem; }
+      .search-box input { padding: 12px 14px 12px 42px; font-size: 0.9rem; }
       .filter-row-bottom {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 12px;
       }
-      .filter-chips { flex-wrap: wrap; gap: 6px; }
-      .filter-chip { font-size: 0.75rem; padding: 6px 12px; }
-      .search-input { font-size: 0.9rem; }
+      .quick-tags { gap: 8px; }
+      .tag-btn { font-size: 0.75rem; padding: 5px 10px; }
       .view-toggles { display: none; }
 
       /* Table → Card on mobile */
-      .schedule-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .matches-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .schedule-table { min-width: 560px; font-size: 0.82rem; }
       .schedule-table th,
       .schedule-table td { padding: 10px 12px; }
@@ -2013,23 +2065,27 @@
 
     /* Extra Small (480px) */
     @media (max-width: 480px) {
-      .hero-title { font-size: 1.7rem; }
-      .hero-section { padding: 90px 12px 40px 12px; }
-      .container { padding: 0 12px; }
+      .hero-title { font-size: 1.6rem; }
+      .hero-section { padding: 75px 12px 30px 12px; }
+      .container { padding: 0 10px; }
 
-      .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .stat-num { font-size: 1.4rem; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .stat-num { font-size: 1.3rem; }
 
-      .countdown-container { padding: 12px 14px; gap: 6px; }
-      .countdown-value { font-size: 1.6rem; }
-      .countdown-item { min-width: 48px; }
+      .countdown-container { padding: 10px 12px; gap: 4px; }
+      .countdown-value { font-size: 1.4rem; }
+      .countdown-item { min-width: 42px; }
+      .countdown-sep { font-size: 1.2rem; }
 
-      .section-title { font-size: 1.3rem; }
-      .match-card { padding: 14px 12px; }
-      .live-match-card { padding: 16px 12px; }
+      .section-title { font-size: 1.25rem; }
+      .match-card { padding: 12px; }
+      .live-match-card { padding: 14px 10px; }
+      .live-team-name { font-size: 0.8rem; }
+      .live-score-display { font-size: 1.4rem; }
+      .team-name { font-size: 0.78rem; }
 
       /* Score toast on very small screens */
-      .score-toast { max-width: calc(100vw - 24px); right: 12px; }
+      .score-toast { max-width: calc(100vw - 20px); right: 10px; }
     }
 
     /* Highlighted Upcoming Countdown */
@@ -2099,7 +2155,7 @@
         Tournament Underway
       </div>
       <h1 class="hero-title">FIFA World Cup 2026</h1>
-      <p class="hero-subtitle font-title" style="color: var(--secondary-color); font-weight: 700; margin-top: -15px; margin-bottom: 24px; font-size: 1.4rem; letter-spacing: 0.5px;">
+      <p class="hero-subtitle-bst font-title">
         Full Schedule in Bangladesh Time (BST, UTC+6)
       </p>
       <p class="hero-subtitle">
@@ -2153,7 +2209,7 @@
       </div>
 
       <!-- Quick Teams CTA -->
-      <div style="margin-top: 35px;">
+      <div class="hero-cta-wrap">
         <button class="btn-action" style="background: rgba(0, 245, 155, 0.08); border: 1px solid rgba(0, 245, 155, 0.25); color: var(--primary-color);" onclick="location.href='teams.html'">
           <i class="fa-solid fa-futbol"></i> View All Teams (48)
         </button>
@@ -2716,7 +2772,6 @@
       const MATCH_DURATION_MS = 115 * 60 * 1000; // ~115 min (90min + stoppages)
 
       const liveMatches = matches.filter(m => {
-        if (m.status === 'Completed') return false; // never show completed matches as live
         const kickoff = new Date(m.utc_time);
         return now >= kickoff && now <= new Date(kickoff.getTime() + MATCH_DURATION_MS);
       });
@@ -2812,7 +2867,6 @@
         }
         // Stop ticker and hide section if all matches finished
         const stillLive = liveMatches.some(m => {
-          if (m.status === 'Completed') return false;
           const kickoff = new Date(m.utc_time);
           return nowTick <= new Date(kickoff.getTime() + 115 * 60 * 1000);
         });
