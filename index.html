@@ -61,7 +61,7 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="badge-live" id="live-badge" style="display:none;">
-        <span class="pulse-dot" style="width: 8px; height: 8px; background-color: #fff; border-radius: 50%; display: inline-block;"></span>
+        <span class="pulse-dot"></span>
         Tournament Underway
       </div>
       <h1 class="hero-title">FIFA World Cup 2026</h1>
@@ -120,7 +120,7 @@
 
       <!-- Quick Teams CTA -->
       <div class="hero-cta-wrap">
-        <button class="btn-action" style="background: rgba(0, 245, 155, 0.08); border: 1px solid rgba(0, 245, 155, 0.25); color: var(--primary-color);" onclick="location.href='teams.html'">
+        <button class="btn-action btn-secondary-cta" onclick="location.href='teams.html'">
           <i class="fa-solid fa-futbol"></i> View All Teams (48)
         </button>
       </div>
@@ -145,7 +145,7 @@
   </section>
 
   <!-- Upcoming Matches Section -->
-  <section class="upcoming-section" id="upcoming" style="padding-top: 50px;">
+  <section class="upcoming-section" id="upcoming">
     <div class="container">
       <div class="section-header">
         <div class="section-title-wrap">
@@ -167,7 +167,7 @@
     <div class="container">
       <div class="section-header">
         <div class="section-title-wrap">
-          <i class="fa-solid fa-fire-flame-curved" style="color: var(--secondary-color); filter: drop-shadow(0 0 8px rgba(255,210,63,0.5));"></i>
+          <i class="fa-solid fa-fire-flame-curved highlight-icon"></i>
           <div>
             <h2 class="section-title">Highlight Matches</h2>
             <p class="section-desc" id="highlight-date-banner">Most recent matchday results</p>
@@ -309,7 +309,7 @@
         </div>
         <div class="footer-col-social">
           <h4>Share this Schedule</h4>
-          <p style="margin-bottom:15px;">Share with other fans in Bangladesh:</p>
+          <p class="footer-social-title">Share with other fans in Bangladesh:</p>
           <div class="social-icons">
             <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
@@ -724,7 +724,7 @@
         card.className = 'live-match-card';
         card.innerHTML = `
           <div class="live-match-inner">
-            <div class="live-team-block" onclick="quickFilterTeam('${m.team1}')" style="cursor:pointer">
+            <div class="live-team-block" onclick="quickFilterTeam('${m.team1}')">
               <div class="live-team-flag">${flag1}</div>
               <div class="live-team-name">${m.team1}</div>
             </div>
@@ -734,7 +734,7 @@
               <div class="live-elapsed-badge" id="live-badge-${m.id}">${elapsedMin}'</div>
             </div>
 
-            <div class="live-team-block" onclick="quickFilterTeam('${m.team2}')" style="cursor:pointer">
+            <div class="live-team-block" onclick="quickFilterTeam('${m.team2}')">
               <div class="live-team-flag">${flag2}</div>
               <div class="live-team-name">${m.team2}</div>
             </div>
@@ -1059,7 +1059,7 @@
               <span class="live-score-num">${m.score2 !== null ? m.score2 : 0}</span>
             </div>
           `;
-          statusPillHTML = `<span class="match-status-pill status-live"><span class="pulse-dot" style="width:6px;height:6px;background:var(--accent-color);border-radius:50%;display:inline-block;margin-right:4px;"></span>LIVE</span>`;
+          statusPillHTML = `<span class="match-status-pill status-live"><span class="pulse-dot"></span>LIVE</span>`;
         }
 
         card.innerHTML = `

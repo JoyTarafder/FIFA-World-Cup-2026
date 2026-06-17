@@ -98,7 +98,7 @@
         </div>
         <div class="footer-col-social">
           <h4>Share this Schedule</h4>
-          <p style="margin-bottom:15px;">Share with other fans in Bangladesh:</p>
+          <p class="footer-social-title">Share with other fans in Bangladesh:</p>
           <div class="social-icons">
             <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
@@ -886,8 +886,8 @@
 
       if (filtered.length === 0) {
         body.innerHTML = `
-          <div style="text-align:center; padding: 40px 10px; color: var(--text-secondary);">
-            <i class="fa-solid fa-magnifying-glass-minus" style="font-size:2rem; margin-bottom:12px;"></i>
+          <div class="modal-no-results">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
             <p>No players match your search filter.</p>
           </div>
         `;
