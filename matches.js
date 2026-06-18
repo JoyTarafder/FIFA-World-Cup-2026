@@ -250,9 +250,9 @@ const matches = [
     "team2_code": "sn",
     "utc_time": "2026-06-16T19:00:00Z",
     "venue": "New York/New Jersey Stadium, East Rutherford",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 3,
+    "score2": 1,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -280,9 +280,9 @@ const matches = [
     "team2_code": "dz",
     "utc_time": "2026-06-17T01:00:00Z",
     "venue": "Kansas City Stadium, Kansas City",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 3,
+    "score2": 0,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -295,9 +295,9 @@ const matches = [
     "team2_code": "jo",
     "utc_time": "2026-06-17T04:00:00Z",
     "venue": "San Francisco Bay Area Stadium, Santa Clara",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 3,
+    "score2": 1,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -310,9 +310,9 @@ const matches = [
     "team2_code": "cd",
     "utc_time": "2026-06-17T17:00:00Z",
     "venue": "Houston Stadium, Houston",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 1,
+    "score2": 1,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -325,9 +325,9 @@ const matches = [
     "team2_code": "hr",
     "utc_time": "2026-06-17T20:00:00Z",
     "venue": "Dallas Stadium, Arlington",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 4,
+    "score2": 2,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -340,9 +340,9 @@ const matches = [
     "team2_code": "pa",
     "utc_time": "2026-06-17T23:00:00Z",
     "venue": "Toronto Stadium, Toronto",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 1,
+    "score2": 0,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -355,9 +355,9 @@ const matches = [
     "team2_code": "co",
     "utc_time": "2026-06-18T02:00:00Z",
     "venue": "Mexico City Stadium, Mexico City",
-    "score1": null,
-    "score2": null,
-    "status": "Scheduled",
+    "score1": 1,
+    "score2": 3,
+    "status": "Completed",
     "featured": false
   },
   {
@@ -1071,8 +1071,8 @@ const matches = [
     "group": "Group J",
     "team1": "Algeria",
     "team2": "Austria",
-    "team1_code": "at",
-    "team2_code": "jo",
+    "team1_code": "dz",
+    "team2_code": "at",
     "utc_time": "2026-06-28T02:00:00Z",
     "venue": "Kansas City Stadium, Kansas City",
     "score1": null,
