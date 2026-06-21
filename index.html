@@ -568,6 +568,9 @@
       // Initialize Countdown
       initCountdown();
       
+      // Load saved API matches first
+      loadSavedApiMatches();
+      
       // ── INITIAL RENDER ──────────────────────────────
       updateLiveAndCompletedMatches();
       renderLiveMatches();       // Live match (if any ongoing)
@@ -1931,6 +1934,8 @@
           renderSchedule();
         }
 
+        saveApiMatches();
+
         // Always hide the status bar — live updates run silently in background
         if (bar) {
           bar.classList.remove('visible');
@@ -2032,8 +2037,44 @@
       }, 4000);
     }
 
+    function saveApiMatches() {
+      try {
+        const toSave = matches
+          .filter(m => m.apiUpdated)
+          .map(m => ({
+            id: m.id,
+            score1: m.score1,
+            score2: m.score2,
+            status: m.status
+          }));
+        localStorage.setItem('fifa-api-matches', JSON.stringify(toSave));
+      } catch (e) {
+        console.warn('Failed to save API matches:', e);
+      }
+    }
+
+    function loadSavedApiMatches() {
+      try {
+        const saved = localStorage.getItem('fifa-api-matches');
+        if (saved) {
+          const apiMatches = JSON.parse(saved);
+          apiMatches.forEach(savedM => {
+            const local = matches.find(m => m.id === savedM.id);
+            if (local) {
+              local.score1 = savedM.score1;
+              local.score2 = savedM.score2;
+              local.status = savedM.status;
+              local.apiUpdated = true;
+            }
+          });
+        }
+      } catch (e) {
+        console.warn('Failed to load saved API matches:', e);
+      }
+    }
+
     function initLiveUpdates() {
-      setTimeout(() => fetchAndApplyLiveScores(), 2500);
+      fetchAndApplyLiveScores();
       liveUpdateTimer = setInterval(() => {
         fetchAndApplyLiveScores();
       }, LIVE_UPDATE_INTERVAL_MS);
