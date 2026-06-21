@@ -515,6 +515,9 @@
       const MATCH_DURATION_MS = 115 * 60 * 1000;
 
       matches.forEach(m => {
+        if (m.apiUpdated) {
+          return;
+        }
         if (m.status === 'Completed' && m.score1 !== null && m.score2 !== null) {
           return;
         }
@@ -1759,6 +1762,21 @@
 
       if (apiHomeScore === null || apiHomeScore === undefined || apiHomeScore === '') return false;
 
+      const finished = apiStatus.includes('finished') || apiStatus.includes('ft') || apiStatus === 'aet' || apiStatus === 'pen';
+      const isLive   = !finished && (
+        apiStatus.includes('ht') || 
+        apiStatus.includes('1h') || 
+        apiStatus.includes('2h') || 
+        apiStatus.includes('et') || 
+        apiStatus.includes('live') || 
+        apiStatus.includes('progress') || 
+        apiStatus.match(/^\d+$/)
+      );
+
+      if (!finished && !isLive) {
+        return false;
+      }
+
       let newS1, newS2;
       if (teamsMatch(localMatch.team1, apiHome)) {
         newS1 = parseInt(apiHomeScore);
@@ -1768,10 +1786,12 @@
         newS2 = parseInt(apiHomeScore);
       }
 
-      const finished = apiStatus.includes('finished') || apiStatus.includes('ft') || apiStatus === 'aet' || apiStatus === 'pen';
-      const isLive   = !finished && (apiStatus.includes('ht') || apiStatus.match(/^\d+$/) || apiStatus.includes('live') || apiStatus.includes('progress'));
+      const newStatus = finished ? 'Completed' : 'Live';
 
-      const changed = (localMatch.score1 !== newS1 || localMatch.score2 !== newS2 || localMatch.status === 'Scheduled');
+      // Mark this match as updated by the API so that simulation logic doesn't overwrite it
+      localMatch.apiUpdated = true;
+
+      const changed = (localMatch.score1 !== newS1 || localMatch.score2 !== newS2 || localMatch.status !== newStatus);
 
       if (changed) {
         const oldS1 = localMatch.score1;
@@ -1779,7 +1799,7 @@
 
         localMatch.score1 = newS1;
         localMatch.score2 = newS2;
-        localMatch.status = finished ? 'Completed' : (isLive ? 'Live' : 'Completed');
+        localMatch.status = newStatus;
 
         const wasGoal = oldS1 !== null && (newS1 !== oldS1 || newS2 !== oldS2);
         if (wasGoal) {
@@ -1822,6 +1842,18 @@
       }
     }
 
+    async function fetchLeagueEvents(endpoint) {
+      const url = `${THESPORTSDB_BASE}/${endpoint}?id=4429`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return data.events || [];
+      } catch {
+        return [];
+      }
+    }
+
     function filterWorldCupEvents(events) {
       const keywords = ['world cup', 'worldcup', 'fifa'];
       return events.filter(ev => {
@@ -1854,6 +1886,11 @@
           const events = await fetchEventsForDate(date);
           allEvents = allEvents.concat(events);
         }
+
+        // Fetch World Cup league specific events directly to be robust
+        const nextLeagueEvents = await fetchLeagueEvents('eventsnextleague.php');
+        const pastLeagueEvents = await fetchLeagueEvents('eventspastleague.php');
+        allEvents = allEvents.concat(nextLeagueEvents, pastLeagueEvents);
 
         const wcEvents = filterWorldCupEvents(allEvents);
 
